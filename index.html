@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tuna's NZ Journey</title>
+    <title>紐西蘭自駕行 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -12,45 +12,50 @@
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #FAFAF9; /* Stone-50: 日式米白 */
-            color: #44403C; /* Stone-700: 深灰 */
+            background-color: #FAFAF9;
+            color: #44403C;
             -webkit-tap-highlight-color: transparent;
         }
-        .card-shadow {
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* 交通連接線 */
+        .transit-line {
+            position: absolute;
+            left: 28px;
+            top: 45px;
+            bottom: -30px;
+            width: 2px;
+            background-color: #E7E5E4;
+            z-index: 0;
         }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        /* PWA 安裝提示與 iOS 優化 */
-        @media all and (display-mode: standalone) {
-            body { padding-top: env(safe-area-inset-top); }
+        .transit-info {
+            position: absolute;
+            left: 45px;
+            top: 100%;
+            margin-top: 10px;
+            z-index: 10;
         }
     </style>
 </head>
 <body class="bg-stone-50 h-screen flex flex-col overflow-hidden">
 
-    <div id="app" class="flex flex-col h-full max-w-md mx-auto bg-stone-50 w-full relative">
+    <div id="app" class="flex flex-col h-full max-w-md mx-auto bg-stone-50 w-full relative shadow-2xl">
         
-        <header class="px-6 pt-12 pb-4 bg-white sticky top-0 z-20 border-b border-stone-100 flex justify-between items-center shadow-sm">
+        <header class="px-6 pt-12 pb-4 bg-white sticky top-0 z-30 border-b border-stone-100 flex justify-between items-center shadow-sm">
             <div>
-                <h1 class="text-2xl font-bold tracking-tight text-stone-800">Tunaの紐西蘭</h1>
-                <p class="text-xs text-stone-500 mt-1">2025.02.15 - 02.21</p>
+                <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
+                <p class="text-xs text-stone-500 mt-1">2026.02.15 - 02.21</p>
             </div>
-            <div class="bg-stone-100 rounded-full p-2 active:bg-stone-200 transition-colors" @click="currentTab = 'info'">
-                <i class="fa-solid fa-circle-info text-stone-600"></i>
+            <div class="bg-stone-100 rounded-full p-2 active:bg-stone-200 cursor-pointer" @click="currentTab = 'info'">
+                <i class="fa-solid fa-file-invoice text-stone-600"></i>
             </div>
         </header>
 
-        <main class="flex-1 overflow-y-auto hide-scrollbar pb-24 px-4 pt-4">
+        <main class="flex-1 overflow-y-auto hide-scrollbar pb-24 px-4 pt-4 bg-stone-50">
             
-            <div v-if="currentTab === 'trip'" class="space-y-6">
+            <div v-if="currentTab === 'trip'" class="space-y-6 pb-10">
                 
-                <div class="flex overflow-x-auto gap-3 pb-2 hide-scrollbar">
+                <div class="flex overflow-x-auto gap-3 pb-2 hide-scrollbar sticky top-0 z-20 pt-2 bg-stone-50/95 backdrop-blur-sm">
                     <button v-for="(day, index) in days" :key="index"
                         @click="activeDay = index"
                         :class="activeDay === index ? 'bg-stone-800 text-white shadow-lg scale-105' : 'bg-white text-stone-400 border border-stone-200'"
@@ -60,163 +65,181 @@
                     </button>
                 </div>
 
-                <div class="bg-white rounded-3xl p-5 card-shadow relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-stone-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <h2 class="text-xl font-bold text-stone-800">{{ days[activeDay].location }}</h2>
-                                <p class="text-xs text-stone-400 mt-1">{{ days[activeDay].summary }}</p>
-                            </div>
-                            <div class="flex flex-col items-end gap-1">
-                                <i :class="getWeatherIcon(days[activeDay].weather)" class="text-2xl mb-1"></i>
-                                <span class="text-sm font-bold text-stone-600">{{ days[activeDay].temp }}</span>
-                            </div>
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-100 relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h2 class="text-xl font-bold text-stone-800">{{ days[activeDay].location }}</h2>
+                            <p class="text-xs text-stone-400 mt-1">{{ days[activeDay].summary }}</p>
                         </div>
+                        <div class="flex flex-col items-end">
+                            <i :class="getWeatherIcon(days[activeDay].weather)" class="text-2xl mb-1"></i>
+                            <span class="text-sm font-bold text-stone-600">{{ days[activeDay].temp }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2 bg-stone-50 rounded-xl p-3 flex gap-3">
+                        <i class="fa-solid fa-shirt text-stone-400 text-xs mt-1"></i>
+                        <p class="text-xs text-stone-600 leading-relaxed">{{ days[activeDay].clothing }}</p>
+                    </div>
 
-                        <div class="bg-stone-50 rounded-xl p-3 flex items-start gap-3 border border-stone-100 mb-4">
-                            <div class="bg-white p-2 rounded-full shadow-sm text-stone-600">
-                                <i class="fa-solid fa-shirt text-xs"></i>
-                            </div>
+                    <div v-if="days[activeDay].aurora" class="mt-3 bg-gradient-to-r from-indigo-900 to-purple-800 text-white p-3 rounded-xl flex items-center justify-between shadow-md">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-star text-yellow-300 animate-pulse"></i>
                             <div>
-                                <p class="text-[10px] font-bold text-stone-400 uppercase tracking-wide">OUTFIT ADVICE</p>
-                                <p class="text-sm text-stone-700 font-medium leading-relaxed">{{ days[activeDay].clothing }}</p>
+                                <p class="text-xs font-bold text-indigo-100">AURORA ALERT</p>
+                                <p class="text-[10px] opacity-80">今晚極光機率高，請查看 APP</p>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-3 pt-3 border-t border-stone-100">
+                        <div class="bg-indigo-50 w-8 h-8 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-bed text-xs text-indigo-500"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs text-stone-400">Night Stay</p>
+                            <p class="text-sm font-bold text-stone-800 truncate">{{ days[activeDay].accommodation }}</p>
+                        </div>
+                        <a :href="'http://googleusercontent.com/maps.google.com/search/' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+                            <i class="fa-solid fa-location-arrow text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-0 relative">
+                    <div v-for="(item, i) in days[activeDay].timeline" :key="i" class="relative pb-8">
                         
-                        <div v-if="days[activeDay].aurora" class="bg-gradient-to-r from-indigo-900 to-purple-800 text-white p-3 rounded-xl flex items-center justify-between shadow-md mb-2">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-star text-yellow-300 animate-pulse"></i>
-                                <div>
-                                    <p class="text-xs font-bold text-indigo-100">AURORA ALERT</p>
-                                    <p class="text-[10px] opacity-80">今晚光害低，請查看 APP</p>
+                        <div v-if="i !== days[activeDay].timeline.length - 1" class="transit-line"></div>
+                        
+                        <div v-if="item.travel" class="transit-info">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex items-center gap-2 bg-stone-100 px-2 py-1 rounded-lg border border-stone-200 inline-flex w-fit">
+                                    <i class="fa-solid fa-car text-stone-400 text-[10px]"></i>
+                                    <span class="text-[10px] font-bold text-stone-600">{{ item.travel.time }}</span>
+                                    <span class="text-[10px] text-stone-400">|</span>
+                                    <span class="text-[10px] text-stone-500">{{ item.travel.road }}</span>
+                                </div>
+                                <div v-if="item.travel.note" class="flex items-center gap-1 text-red-500 bg-red-50 px-2 py-0.5 rounded-lg border border-red-100 inline-flex w-fit">
+                                    <i class="fa-solid fa-triangle-exclamation text-[10px]"></i>
+                                    <span class="text-[10px] font-medium">{{ item.travel.note }}</span>
                                 </div>
                             </div>
-                            <button class="bg-white/20 px-2 py-1 rounded text-[10px] backdrop-blur-sm">Check KP</button>
                         </div>
 
-                        <div class="flex items-center gap-3 mt-2 pt-3 border-t border-stone-100">
-                            <div class="bg-stone-100 w-8 h-8 rounded-full flex items-center justify-center">
-                                <i class="fa-solid fa-bed text-xs text-stone-600"></i>
+                        <div class="flex gap-4 relative z-10">
+                            <div class="flex flex-col items-center gap-1 min-w-[56px]">
+                                <span class="text-xs font-bold text-stone-400">{{ item.time }}</span>
+                                <div :class="getTypeColor(item.type)" class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md ring-4 ring-stone-50 text-sm">
+                                    <i :class="getTypeIcon(item.type)"></i>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="text-xs text-stone-400">Night Stay</p>
-                                <p class="text-sm font-bold text-stone-800 truncate">{{ days[activeDay].accommodation }}</p>
+
+                            <div class="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-stone-100 active:scale-[0.99] transition-transform">
+                                <div v-if="item.image" class="w-full h-36 rounded-xl bg-stone-200 mb-3 overflow-hidden relative">
+                                    <img :src="item.image" class="w-full h-full object-cover" alt="View">
+                                </div>
+
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-stone-800 text-lg leading-tight">{{ item.title }}</h3>
+                                    <a :href="'http://googleusercontent.com/maps.google.com/search/' + (item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
+                                        <i class="fa-solid fa-diamond-turn-right text-xl"></i>
+                                    </a>
+                                </div>
+                                
+                                <p class="text-sm text-stone-600 mt-2 leading-relaxed text-justify">{{ item.desc }}</p>
+
+                                <div v-if="item.food" class="mt-2 bg-orange-50 border-l-2 border-orange-300 p-2 rounded-r-lg">
+                                    <div class="flex gap-2 items-start">
+                                        <i class="fa-solid fa-utensils text-orange-400 text-xs mt-1"></i>
+                                        <p class="text-xs text-orange-700 font-medium">{{ item.food }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <a :href="'https://www.google.com/maps/search/?api=1&query=' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-                                <i class="fa-solid fa-location-arrow text-xs"></i>
-                            </a>
                         </div>
+                        <div v-if="item.travel" class="h-8"></div>
                     </div>
                 </div>
-
-                <div class="space-y-4">
-                    <div v-for="(item, i) in days[activeDay].timeline" :key="i" 
-                         class="bg-white rounded-2xl p-4 card-shadow flex gap-4 transition-transform active:scale-[0.98]">
-                        <div class="flex flex-col items-center gap-2 min-w-[50px]">
-                            <span class="text-xs font-bold text-stone-400">{{ item.time }}</span>
-                            <div :class="getTypeColor(item.type)" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs shadow-sm ring-2 ring-white">
-                                <i :class="getTypeIcon(item.type)"></i>
-                            </div>
-                            <div v-if="i !== days[activeDay].timeline.length - 1" class="w-[1px] h-full bg-stone-100 my-1"></div>
-                        </div>
-
-                        <div class="flex-1 pb-2">
-                            <div v-if="item.image" class="w-full h-36 rounded-xl bg-stone-200 mb-3 overflow-hidden relative group shadow-sm">
-                                <img :src="item.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="View">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 pt-6">
-                                    <p class="text-white text-[10px] font-medium">{{ item.imgCredit }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold text-stone-800 text-lg">{{ item.title }}</h3>
-                                <a :href="'https://www.google.com/maps/search/?api=1&query=' + (item.navQuery || item.title)" target="_blank" class="text-stone-400 hover:text-blue-500 px-2 py-1 -mr-2">
-                                    <i class="fa-solid fa-diamond-turn-right text-xl"></i>
-                                </a>
-                            </div>
-                            
-                            <p class="text-sm text-stone-600 mt-2 leading-relaxed text-justify">{{ item.desc }}</p>
-
-                            <div v-if="item.warning" class="mt-3 bg-red-50 border-l-2 border-red-400 p-2 rounded-r-lg">
-                                <div class="flex gap-2">
-                                    <i class="fa-solid fa-triangle-exclamation text-red-400 text-xs mt-0.5"></i>
-                                    <p class="text-xs text-red-600 leading-tight">{{ item.warning }}</p>
-                                </div>
-                            </div>
-                             <div v-if="item.food" class="mt-2 bg-orange-50 border-l-2 border-orange-300 p-2 rounded-r-lg">
-                                <div class="flex gap-2">
-                                    <i class="fa-solid fa-utensils text-orange-400 text-xs mt-0.5"></i>
-                                    <p class="text-xs text-orange-700 font-medium">必吃：{{ item.food }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="h-8 text-center text-xs text-stone-300">End of Day {{ activeDay + 1 }}</div>
             </div>
 
-            <div v-if="currentTab === 'info'" class="space-y-6 animate-fade-in">
-                <div class="bg-white rounded-3xl p-6 card-shadow">
-                    <h2 class="text-lg font-bold text-stone-800 mb-4">航班資訊</h2>
-                    <div class="flex justify-between items-center mb-6 bg-stone-50 p-4 rounded-xl">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-stone-800">CHC</div>
-                            <div class="text-xs text-stone-400">Christchurch</div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <i class="fa-solid fa-plane text-stone-300 rotate-90"></i>
-                            <span class="text-[10px] text-stone-300 mt-1">Direct</span>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-stone-800">TPE</div>
-                            <div class="text-xs text-stone-400">Taipei</div>
-                        </div>
-                    </div>
+            <div v-if="currentTab === 'info'" class="space-y-6 animate-fade-in pb-10">
+                
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100">
+                    <h2 class="text-lg font-bold text-stone-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-green-500"></i>
+                        預訂提醒清單
+                    </h2>
                     <div class="space-y-3">
-                        <div class="flex justify-between text-sm border-b border-stone-50 pb-2">
-                            <span class="text-stone-400"><i class="fa-solid fa-plane-arrival mr-2"></i>抵達基督城</span>
-                            <span class="font-medium">02/15 13:25</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-stone-400"><i class="fa-solid fa-plane-departure mr-2"></i>離開基督城</span>
-                            <span class="font-medium">02/21 07:20</span>
+                        <div v-for="(book, idx) in bookingList" :key="idx" class="flex items-center justify-between p-3 bg-stone-50 rounded-xl">
+                            <span class="text-sm font-medium text-stone-700">{{ book.item }}</span>
+                            <span class="text-xs bg-stone-200 text-stone-600 px-2 py-1 rounded">{{ book.day }}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl p-6 card-shadow">
-                    <h2 class="text-lg font-bold text-stone-800 mb-4">緊急聯絡</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="tel:111" class="bg-red-50 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 active:bg-red-100 transition-colors">
-                            <i class="fa-solid fa-phone text-red-500 text-xl"></i>
-                            <span class="text-sm font-bold text-red-600">緊急 111</span>
-                        </a>
-                        <a href="#" class="bg-stone-50 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 active:bg-stone-200 transition-colors">
-                            <i class="fa-solid fa-car-burst text-stone-500 text-xl"></i>
-                            <span class="text-sm font-bold text-stone-600">租車救援</span>
-                        </a>
+                <h2 class="text-lg font-bold text-stone-800 px-2">航班資訊 (2026)</h2>
+                <div class="space-y-4">
+                    <div v-for="(flight, i) in flightsInbound" :key="'in'+i" class="bg-white rounded-2xl p-4 shadow-sm border-l-4 border-blue-400">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">去程 {{ i+1 }}</span>
+                            <span class="text-xs font-mono text-stone-400">{{ flight.code }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="text-xl font-bold text-stone-800">{{ flight.dep }}</div>
+                                <div class="text-xs text-stone-500">{{ flight.depTime }}</div>
+                                <div class="text-[10px] text-stone-400">{{ flight.depDate }}</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <i class="fa-solid fa-plane text-stone-300 rotate-90"></i>
+                                <span class="text-[10px] text-stone-300 mt-1">{{ flight.duration }}</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xl font-bold text-stone-800">{{ flight.arr }}</div>
+                                <div class="text-xs text-stone-500">{{ flight.arrTime }}</div>
+                                <div class="text-[10px] text-stone-400">{{ flight.arrDate }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-1 bg-stone-100 rounded-full my-4"></div>
+
+                    <div v-for="(flight, i) in flightsOutbound" :key="'out'+i" class="bg-white rounded-2xl p-4 shadow-sm border-l-4 border-orange-400">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">回程 {{ i+1 }}</span>
+                            <span class="text-xs font-mono text-stone-400">{{ flight.code }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="text-xl font-bold text-stone-800">{{ flight.dep }}</div>
+                                <div class="text-xs text-stone-500">{{ flight.depTime }}</div>
+                                <div class="text-[10px] text-stone-400">{{ flight.depDate }}</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <i class="fa-solid fa-plane text-stone-300 rotate-90"></i>
+                                <span class="text-[10px] text-stone-300 mt-1">{{ flight.duration }}</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xl font-bold text-stone-800">{{ flight.arr }}</div>
+                                <div class="text-xs text-stone-500">{{ flight.arrTime }}</div>
+                                <div class="text-[10px] text-stone-400">{{ flight.arrDate }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </main>
 
-        <nav class="bg-white/90 backdrop-blur-md border-t border-stone-100 px-6 py-4 flex justify-around items-center absolute bottom-0 w-full pb-8 z-30">
+        <nav class="bg-white/90 backdrop-blur-md border-t border-stone-100 px-12 py-4 flex justify-between items-center absolute bottom-0 w-full pb-8 z-40">
             <button @click="currentTab = 'trip'" :class="currentTab === 'trip' ? 'text-stone-800 scale-110' : 'text-stone-300'" class="flex flex-col items-center gap-1 transition-all">
                 <i class="fa-solid fa-map-location-dot text-xl"></i>
-                <span class="text-[10px] font-medium">行程</span>
+                <span class="text-xs font-medium">行程</span>
             </button>
-            <button class="bg-stone-800 text-white w-14 h-14 rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-stone-300 hover:scale-105 transition-transform" onclick="window.open('https://www.google.com/maps', '_blank')">
-                <i class="fa-solid fa-location-arrow text-xl"></i>
-            </button>
+            <div class="w-[1px] h-8 bg-stone-200"></div>
             <button @click="currentTab = 'info'" :class="currentTab === 'info' ? 'text-stone-800 scale-110' : 'text-stone-300'" class="flex flex-col items-center gap-1 transition-all">
-                <i class="fa-solid fa-suitcase text-xl"></i>
-                <span class="text-[10px] font-medium">資訊</span>
+                <i class="fa-solid fa-file-invoice text-xl"></i>
+                <span class="text-xs font-medium">資訊</span>
             </button>
         </nav>
-
     </div>
 
     <script>
@@ -227,23 +250,54 @@
                 const currentTab = ref('trip');
                 const activeDay = ref(0);
 
-                // 行程資料結構 (更新版)
+                // Booking Checklist
+                const bookingList = [
+                    { item: 'Franz Josef 住宿 (晚到通知)', day: 'D1' },
+                    { item: 'Real Guns 射擊預約', day: 'D3' },
+                    { item: '皇后鎮滑翔傘預約', day: 'D3' },
+                    { item: 'Deer Park Heights (上網拿密碼)', day: 'D4' },
+                    { item: 'Shotover Jet 噴射快艇', day: 'D4' },
+                    { item: '小藍企鵝歸巢 Tour', day: 'D5' },
+                    { item: '基督城飯店接駁車', day: 'D6' }
+                ];
+
+                // Flights 2026
+                const flightsInbound = [
+                    { code: 'BR869', dep: 'TPE', arr: 'HKG', depTime: '12:25', arrTime: '14:20', depDate: 'Sat 14 Feb', arrDate: '14 Feb', duration: '1h 55m' },
+                    { code: 'NZ80', dep: 'HKG', arr: 'AKL', depTime: '17:50', arrTime: '09:40', depDate: 'Sat 14 Feb', arrDate: 'Sun 15 Feb', duration: '10h 50m' },
+                    { code: 'NZ539', dep: 'AKL', arr: 'CHC', depTime: '12:00', arrTime: '13:25', depDate: 'Sun 15 Feb', arrDate: '15 Feb', duration: '1h 25m' }
+                ];
+
+                const flightsOutbound = [
+                    { code: 'NZ586', dep: 'CHC', arr: 'AKL', depTime: '07:20', arrTime: '08:45', depDate: 'Sat 21 Feb', arrDate: '21 Feb', duration: '1h 25m' },
+                    { code: 'NZ81', dep: 'AKL', arr: 'HKG', depTime: '10:10', arrTime: '16:20', depDate: 'Sat 21 Feb', arrDate: '21 Feb', duration: '11h 10m' },
+                    { code: 'CX466', dep: 'HKG', arr: 'TPE', depTime: '09:30', arrTime: '11:25', depDate: 'Sun 22 Feb', arrDate: '22 Feb', duration: '1h 55m' }
+                ];
+
                 const days = ref([
                     {
                         dateStr: '02/15 Sun',
                         location: 'Christchurch ➔ Franz Josef',
                         temp: '18°C',
                         weather: 'cloudy',
-                        clothing: '洋蔥式穿搭。平地舒適為主，但亞瑟隘口與冰川晚上風大偏冷，務必隨身攜帶防風外套。',
-                        summary: '抵達紐西蘭，進行補給並穿越亞瑟隘口，夜宿冰川小鎮。',
+                        clothing: '洋蔥式穿搭。平地舒適為主，但晚上山區風大偏冷，務必帶防風外套。',
+                        summary: '抵達基督城，補給後穿越亞瑟隘口，夜宿冰川小鎮。',
                         accommodation: 'Franz Josef Montrose',
                         aurora: false,
                         timeline: [
-                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車、購買 SIM 卡。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
-                            { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果，以及「今晚的熟食晚餐」和「明早的早餐」，因為今晚住的地方店家很少。', food: '烤雞、馬鈴薯沙拉、麵包', navQuery: 'PAK\'nSAVE Hornby' },
-                            { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '電影《納尼亞傳奇》終極決戰取景地。綠色山丘上散落著成千上萬的巨大石灰岩，壯觀且蒼涼。非常適合攀爬拍照。', image: 'https://images.unsplash.com/photo-1598064379487-73595690b284?q=80&w=800&auto=format&fit=crop', imgCredit: 'Castle Hill', navQuery: 'Kura Tawhiti / Castle Hill' },
-                            { time: '18:30', type: 'transport', title: 'Arthur\'s Pass', desc: '進山區前最後的舒適公廁與遊客中心。運氣好的話可以看到高山鸚鵡 Kea（請勿餵食，牠們會咬橡膠條）。', navQuery: 'Arthur\'s Pass Visitor Centre' },
-                            { time: '21:30', type: 'sleep', title: '抵達住宿', desc: '請提前 Email 通知旅館會晚到 (Late check-in)。', warning: '最後 1.5 小時為山路夜車，野生動物(負鼠)多，請放慢車速。', navQuery: 'Franz Josef Montrose' }
+                            { time: '13:25', type: 'flight', title: '抵達基督城', desc: 'NZ539 抵達。取車、買 SIM 卡。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Christchurch_International_Airport_001.jpg/800px-Christchurch_International_Airport_001.jpg', navQuery: 'Christchurch Airport' },
+                            
+                            { time: '15:00', type: 'shopping', title: 'Pak\'nSave 補給', desc: '全島最便宜超市。買水、晚餐(熟食)、明日早餐。', food: '烤雞、沙拉', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Pak_n_Save_More_Store_exterior.jpg/800px-Pak_n_Save_More_Store_exterior.jpg', navQuery: 'PAK\'nSAVE Hornby',
+                              travel: { time: '20m', road: 'SH1', note: '右駕適應中' } },
+                            
+                            { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '納尼亞傳奇巨石陣。壯觀的石灰岩群。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Kura_Tawhiti_Castle_Hill.jpg/800px-Kura_Tawhiti_Castle_Hill.jpg', navQuery: 'Castle Hill Conservation Area',
+                              travel: { time: '1h 10m', road: 'SH73', note: '山路開始' } },
+                            
+                            { time: '18:30', type: 'transport', title: 'Arthur\'s Pass', desc: '進山區前最後公廁。留意 Kea 鸚鵡。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Arthurs_Pass_Village.jpg/800px-Arthurs_Pass_Village.jpg', navQuery: 'Arthur\'s Pass Visitor Centre',
+                              travel: { time: '50m', road: 'SH73', note: '陡坡' } },
+                            
+                            { time: '21:30', type: 'sleep', title: '抵達 Franz Josef', desc: '記得通知晚到。小心夜間野生動物。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Franz_Josef_Glacier_town.jpg/800px-Franz_Josef_Glacier_town.jpg', navQuery: 'Franz Josef Montrose',
+                              travel: { time: '2.5h', road: 'SH6', note: '夜路小心負鼠' } }
                         ]
                     },
                     {
@@ -251,15 +305,29 @@
                         location: 'Franz Josef ➔ Wanaka',
                         temp: '20°C',
                         weather: 'sunny',
-                        clothing: '輕便運動裝。早上走步道建議穿防滑好走的鞋子（會有碎石），下午在湖邊可穿休閒鞋。',
-                        summary: '探索冰川遺跡，午後享受瓦納卡湖畔時光。',
+                        clothing: '輕便運動裝。早上走步道穿好走的鞋。',
+                        summary: '冰川步道、飛瀑與湖景，漫步瓦納卡。',
                         accommodation: 'Ruru Retreat',
                         aurora: false,
                         timeline: [
-                            { time: '10:20', type: 'sight', title: '冰川步道', desc: 'Franz Josef Glacier Valley Walk。這是一條平緩的河床步道，能帶你走到觀景台「遠眺」冰川前緣。沿途是瀑布與壯麗的峽谷地形。', warning: '河床風非常大，嚴禁越過警戒線（有落石風險）。', image: 'https://images.unsplash.com/photo-1543207481-b5860361555a?q=80&w=800&auto=format&fit=crop', imgCredit: 'Franz Josef', navQuery: 'Franz Josef Glacier Car Park' },
-                            { time: '12:40', type: 'food', title: 'Fox Glacier 午餐', desc: 'The White Pub，這是一間充滿西部風情的傳統酒吧餐廳，氣氛熱鬧。', food: '大份量炸魚薯條、紐西蘭漢堡', navQuery: 'The White Pub, Fox Glacier' },
-                            { time: '15:30', type: 'sight', title: 'Lake Hawea Lookout', desc: '這是位於公路旁的驚喜景點。哈威亞湖的顏色是深邃的寶藍色，與旁邊的瓦納卡湖截然不同，景色開闊震撼。', image: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=800&auto=format&fit=crop', imgCredit: 'Lake Hawea', navQuery: 'Lake Hawea Lookout' },
-                            { time: '18:00', type: 'sight', title: '孤獨樹散步', desc: 'That Wanaka Tree，全世界最有名的一棵柳樹，孤獨地生長在湖水中。建議從停車場沿著湖畔步道慢慢走過去，夕陽時分光線金黃最美。', image: 'https://images.unsplash.com/photo-1565016839352-71a7dd060205?q=80&w=800&auto=format&fit=crop', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree' }
+                            { time: '10:20', type: 'sight', title: '冰川步道', desc: 'Valley Walk 遠眺冰川前緣。風大。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Franz_Josef_Glacier_Valley.jpg/800px-Franz_Josef_Glacier_Valley.jpg', navQuery: 'Franz Josef Glacier Car Park',
+                              travel: { time: '10m', road: 'Local', note: '' } },
+                            
+                            { time: '12:40', type: 'food', title: 'Fox Glacier 午餐', desc: '小鎮上覓食，推薦炸魚薯條或漢堡。', food: 'The White Pub', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Fox_Glacier_township.jpg/800px-Fox_Glacier_township.jpg', navQuery: 'The White Pub',
+                              travel: { time: '25m', road: 'SH6', note: '蜿蜒山路' } },
+                            
+                            { time: '13:40', type: 'sight', title: '小鎮逛逛', desc: 'Fox Glacier Village 散步，買紀念品。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Fox_Glacier_Village_Street.jpg/800px-Fox_Glacier_Village_Street.jpg', navQuery: 'Fox Glacier Guide Building' },
+                            
+                            { time: '15:00', type: 'sight', title: 'Thunder Creek Falls', desc: '雷河瀑布，高達 28 公尺。走路 5 分鐘。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Thunder_Creek_Falls.jpg/800px-Thunder_Creek_Falls.jpg', navQuery: 'Thunder Creek Falls',
+                              travel: { time: '1h', road: 'Haast Pass', note: '景觀公路' } },
+                            
+                            { time: '16:30', type: 'sight', title: 'Lake Hawea Lookout', desc: '深藍色湖泊觀景台。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Lake_Hawea_Lookout.jpg/800px-Lake_Hawea_Lookout.jpg', navQuery: 'Lake Hawea Lookout',
+                              travel: { time: '1h', road: 'SH6', note: '' } },
+                            
+                            { time: '18:00', type: 'sight', title: '孤獨樹', desc: 'That Wanaka Tree 湖畔散步，夕陽攝影。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/That_Wanaka_Tree_Sunset.jpg/800px-That_Wanaka_Tree_Sunset.jpg', navQuery: 'That Wanaka Tree',
+                              travel: { time: '15m', road: 'Local', note: '' } },
+                            
+                            { time: '19:30', type: 'food', title: 'Wanaka 晚餐', desc: '市區熱鬧湖濱街道覓食。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Wanaka_lakefront_shops.jpg/800px-Wanaka_lakefront_shops.jpg', navQuery: 'Ardmore Street Wanaka' }
                         ]
                     },
                     {
@@ -267,15 +335,24 @@
                         location: 'Wanaka ➔ Queenstown',
                         temp: '22°C',
                         weather: 'sunny',
-                        clothing: '舒適長褲與墨鏡。因為要進行射擊活動，建議穿方便活動的長褲；下午滑翔傘陽光刺眼，墨鏡必備。',
-                        summary: '挑戰實彈射擊，行駛最高公路，高空俯瞰皇后鎮。',
+                        clothing: '舒適長褲(射擊用) + 墨鏡(滑翔傘用)。',
+                        summary: '射擊、高空滑翔、最高公路與箭鎮。',
                         accommodation: 'Rendezvous Heritage Hotel',
                         aurora: false,
                         timeline: [
-                            { time: '10:00', type: 'sight', title: 'Real Guns 射擊', desc: '位於 Cardrona 谷地，體驗真實軍用槍械（如狙擊槍、散彈槍）的震撼後座力。', warning: '射擊時聲音巨大，請務必佩戴店家提供的耳罩與護目鏡。', image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=800&auto=format&fit=crop', imgCredit: 'Cardrona Valley', navQuery: 'Real Guns New Zealand' },
-                            { time: '11:30', type: 'transport', title: 'Crown Range Summit', desc: '紐西蘭海拔最高的公路。在最高點可以俯瞰整個之字形山路與皇后鎮盆地，景色絕佳。', navQuery: 'Crown Range Summit Lookout' },
-                            { time: '12:00', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮，白金漢街上有許多 19 世紀建築。推薦去買個派坐在草地上吃。', food: 'Arrowtown Bakery 鹿肉派 (Venison Pie)', navQuery: 'Buckingham Street, Arrowtown' },
-                            { time: '14:00', type: 'sight', title: '高空滑翔傘', desc: '搭乘 Skyline 纜車上山，由教練帶領飛行。像鳥一樣俯瞰瓦卡蒂普湖與卓越山脈，最後降落在市區的小學操場。', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop', imgCredit: 'Queenstown', navQuery: 'Skyline Queenstown' }
+                            { time: '10:00', type: 'activity', title: 'Real Guns 射擊', desc: 'Cardrona 谷地體驗長槍實彈射擊。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Clay_pigeon_shooting.jpg/800px-Clay_pigeon_shooting.jpg', navQuery: 'Real Guns New Zealand',
+                              travel: { time: '20m', road: 'Cardrona Valley', note: '' } },
+                            
+                            { time: '11:30', type: 'sight', title: '皇冠山脈公路', desc: '紐西蘭最高公路，俯瞰髮夾彎。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Crown_Range_Road_summit.jpg/800px-Crown_Range_Road_summit.jpg', navQuery: 'Crown Range Summit Lookout',
+                              travel: { time: '20m', road: 'Crown Range', note: '陡峭髮夾彎' } },
+                            
+                            { time: '12:30', type: 'food', title: '箭鎮午餐', desc: '逛淘金老街，吃鹹派。', food: 'Arrowtown Bakery', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Buckingham_St_Arrowtown.jpg/800px-Buckingham_St_Arrowtown.jpg', navQuery: 'Buckingham Street Arrowtown',
+                              travel: { time: '30m', road: 'Zig Zag Rd', note: '下坡小心' } },
+                            
+                            { time: '14:00', type: 'activity', title: '高空滑翔傘', desc: 'Skyline 纜車上山，飛行俯瞰湖泊。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Paragliding_Queenstown.jpg/800px-Paragliding_Queenstown.jpg', navQuery: 'Skyline Queenstown',
+                              travel: { time: '25m', road: 'Local', note: '' } },
+                            
+                            { time: '18:00', type: 'sight', title: '皇后鎮市區', desc: '湖邊散步、逛街、街頭藝人。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Queenstown_Mall.jpg/800px-Queenstown_Mall.jpg', navQuery: 'Queenstown Mall' }
                         ]
                     },
                     {
@@ -283,15 +360,25 @@
                         location: 'Queenstown ➔ Omakau',
                         temp: '15°C',
                         weather: 'partly-cloudy',
-                        clothing: '保暖防風。噴射快艇風速極快，體感溫度低。晚上在中奧塔哥看極光非常冷，請準備厚外套。',
-                        summary: '魔戒鹿園餵食，噴射快艇甩尾，入住觀星勝地。',
+                        clothing: '保暖防風(快艇/觀星)。',
+                        summary: '魔戒鹿園、噴射快艇，入住觀星勝地。',
                         accommodation: 'Schist Rock Lodge',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'sight', title: 'Deer Park Heights', desc: '《魔戒》洛汗國難民逃難場景。這是一個可以開車上山的農場，沿途可以餵食綿羊、鹿、山羊，還能俯瞰機場與湖景。', warning: '需事先上網預約取得大門密碼。路面部分為碎石，請小心駕駛。', image: 'https://images.unsplash.com/photo-1549480628-91223253b811?q=80&w=800&auto=format&fit=crop', imgCredit: 'Deer Park', navQuery: 'Deer Park Heights' },
-                            { time: '14:00', type: 'sight', title: 'Shotover Jet', desc: '皇后鎮最經典的「紅船」。在狹窄的沙特歐瓦河谷中以 85km/h 高速穿梭，並體驗 360 度大甩尾。', navQuery: 'Shotover Jet Queenstown' },
-                            { time: '15:30', type: 'food', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', navQuery: 'Jones Family Fruit Stall' },
-                            { time: '17:30', type: 'sleep', title: '抵達 Omakau', desc: '位於中奧塔哥核心，這裡光害極低，是觀星與極光的絕佳地點。', warning: 'Aurora Alert! 今晚請設鬧鐘起床看天空！', navQuery: 'Schist Rock Lodge' }
+                            { time: '09:30', type: 'activity', title: 'Deer Park Heights', desc: '魔戒場景，開車上山餵鹿。需密碼。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Queenstown_from_Deer_Park_Heights.jpg/800px-Queenstown_from_Deer_Park_Heights.jpg', navQuery: 'Deer Park Heights',
+                              travel: { time: '20m', road: 'Peninsula Rd', note: '路面不平' } },
+                            
+                            { time: '12:30', type: 'food', title: 'Frankton 午餐', desc: '購物中心覓食。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Frankton_Queenstown.jpg/800px-Frankton_Queenstown.jpg', navQuery: 'Queenstown Central Shopping Centre',
+                              travel: { time: '20m', road: 'Local', note: '' } },
+                            
+                            { time: '14:00', type: 'activity', title: '噴射快艇', desc: 'Shotover Jet 紅船，峽谷甩尾。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Shotover_Jet.jpg/800px-Shotover_Jet.jpg', navQuery: 'Shotover Jet Queenstown',
+                              travel: { time: '15m', road: 'Gorge Rd', note: '' } },
+                            
+                            { time: '15:30', type: 'food', title: 'Cromwell 水果', desc: 'Jones Family Fruit Stall 買櫻桃。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Cromwell_Fruit_Sculpture.jpg/800px-Cromwell_Fruit_Sculpture.jpg', navQuery: 'Jones Family Fruit Stall',
+                              travel: { time: '45m', road: 'SH6', note: '河谷景觀' } },
+                            
+                            { time: '17:30', type: 'sight', title: 'Omakau 漫步', desc: '寧靜小鎮散步，晚餐。今晚可看極光。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Omakau_Main_Street.jpg/800px-Omakau_Main_Street.jpg', navQuery: 'Schist Rock Lodge',
+                              travel: { time: '40m', road: 'SH85', note: '' } }
                         ]
                     },
                     {
@@ -299,31 +386,51 @@
                         location: 'Omakau ➔ Dunedin',
                         temp: '16°C',
                         weather: 'cloudy',
-                        clothing: '極度保暖。白天市區觀光可輕鬆穿，但晚上看企鵝是在海邊吹海風，非常冷，請穿上你帶的所有保暖衣物（毛帽、手套）。',
-                        summary: '走 Pig Route 公路，探索蘇格蘭風情古城與企鵝。',
+                        clothing: '極度保暖(晚上看企鵝)。',
+                        summary: '古城建築巡禮，世界最陡街，夜探企鵝。',
                         accommodation: 'Private Luxury Townhouse',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'transport', title: 'Pig Route (SH85)', desc: '這是一條人煙稀少的內陸公路，沿途是金黃色的草海與荒涼壯闊的景色，非常有公路電影的感覺。', navQuery: 'Pig Route' },
-                            { time: '13:00', type: 'sight', title: '但尼丁觀光', desc: '參觀被譽為薑餅屋的「但尼丁火車站」，以及挑戰世界最陡街道「鮑德溫街」。這座城市充滿蘇格蘭建築風情。', image: 'https://images.unsplash.com/photo-1580261942767-f274a44682c7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Dunedin Station', navQuery: 'Dunedin Railway Station' },
-                            { time: '20:00', type: 'sight', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', navQuery: 'Blue Penguins Pukekura' }
+                            { time: '13:00', type: 'sight', title: '但尼丁火車站', desc: '必拍的文藝復興風格建築。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Dunedin_Railway_Station_Exterior.jpg/800px-Dunedin_Railway_Station_Exterior.jpg', navQuery: 'Dunedin Railway Station',
+                              travel: { time: '2.5h', road: 'Pig Route', note: '荒涼內陸' } },
+                            
+                            { time: '14:30', type: 'sight', title: '鮑德溫街', desc: 'Baldwin Street，世界最陡街道。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Baldwin_Street_Dunedin.jpg/800px-Baldwin_Street_Dunedin.jpg', navQuery: 'Baldwin Street' },
+                            
+                            { time: '15:30', type: 'sight', title: '奧塔哥大學', desc: '紐西蘭最古老大學，參觀鐘樓。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/University_of_Otago_Clocktower_Building.jpg/800px-University_of_Otago_Clocktower_Building.jpg', navQuery: 'University of Otago Clocktower' },
+                            
+                            { time: '17:30', type: 'food', title: '市區晚餐', desc: '建議早點吃，前往半島看企鵝。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Octagon_Dunedin.jpg/800px-The_Octagon_Dunedin.jpg', navQuery: 'The Octagon Dunedin' },
+                            
+                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '半島頂端看企鵝上岸。海邊極冷。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Little_Blue_Penguin.jpg/800px-Little_Blue_Penguin.jpg', navQuery: 'Blue Penguins Pukekura',
+                              travel: { time: '1h', road: 'Peninsula Rd', note: '路窄蜿蜒' } }
                         ]
                     },
-                     {
+                    {
                         dateStr: '02/20 Fri',
                         location: 'Dunedin ➔ Christchurch',
                         temp: '19°C',
                         weather: 'sunny',
-                        clothing: '休閒舒適 + 防風。東海岸海風較大，建議穿連帽外套或戴帽子，以免吹久了頭痛。',
-                        summary: '東海岸生態之旅，海豹、鮮奶與維多利亞建築。',
+                        clothing: '休閒舒適 + 防風。',
+                        summary: '大圓石、海豹與鮮奶，維多利亞風情。',
                         accommodation: 'The Milano Christchurch',
                         aurora: false,
                         timeline: [
-                            { time: '10:15', type: 'sight', title: 'Moeraki 大圓石', desc: '海灘上散落著許多巨大、圓潤的石頭，像恐龍蛋一樣。傳說是毛利獨木舟翻船後的遺跡。', image: 'https://images.unsplash.com/photo-1589873961179-8b0df942976c?q=80&w=800&auto=format&fit=crop', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe' },
-                            { time: '11:15', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', navQuery: 'Katiki Point Lighthouse' },
-                            { time: '12:30', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', navQuery: '27 Bulleid Road, Deborah' },
-                            { time: '13:00', type: 'sight', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct' },
-                            { time: '18:00', type: 'sleep', title: '抵達住宿', desc: '強烈建議今晚先去機場還車，再搭 Uber 回飯店。這樣明天清晨去機場會從容很多。', navQuery: 'The Milano Christchurch' }
+                            { time: '10:15', type: 'sight', title: 'Moeraki 大圓石', desc: '沙灘上的恐龍蛋巨石。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Moeraki_Boulders_New_Zealand.jpg/800px-Moeraki_Boulders_New_Zealand.jpg', navQuery: 'Moeraki Boulders Cafe',
+                              travel: { time: '1h 15m', road: 'SH1', note: '' } },
+                            
+                            { time: '11:15', type: 'sight', title: 'Katiki Point 海豹', desc: '燈塔步道看野生皮毛海豹。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Katiki_Point_Lighthouse.jpg/800px-Katiki_Point_Lighthouse.jpg', navQuery: 'Katiki Point Lighthouse',
+                              travel: { time: '15m', road: 'Lighthouse Rd', note: '碎石路' } },
+                            
+                            { time: '12:30', type: 'food', title: 'The Natural Dairy', desc: '投幣式超濃玻璃瓶鮮奶。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Milk_bottle.jpg/800px-Milk_bottle.jpg', navQuery: '27 Bulleid Road, Deborah',
+                              travel: { time: '30m', road: 'SH1', note: '' } },
+                            
+                            { time: '13:00', type: 'food', title: 'Oamaru 午餐', desc: 'Star and Garter 或 Cucina。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Oamaru_Victorian_Precinct.jpg/800px-Oamaru_Victorian_Precinct.jpg', navQuery: 'Oamaru Victorian Precinct' },
+                            
+                            { time: '14:30', type: 'sight', title: '維多利亞特區', desc: '白石建築群與蒸氣龐克總部。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Steampunk_HQ_Oamaru.jpg/800px-Steampunk_HQ_Oamaru.jpg', navQuery: 'Steampunk HQ' },
+                            
+                            { time: '17:30', type: 'food', title: '回程晚餐', desc: 'Ashburton 或 Rakaia 簡單吃。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ashburton_town_centre.jpg/800px-Ashburton_town_centre.jpg', navQuery: 'Ashburton' },
+                            
+                            { time: '18:30', type: 'sleep', title: '抵達住宿', desc: '建議先去還車，搭「飯店接駁車」回旅館 (需預約)。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Sudima_Hotel_Christchurch_Airport.jpg/800px-Sudima_Hotel_Christchurch_Airport.jpg', navQuery: 'The Milano Christchurch',
+                              travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } }
                         ]
                     },
                     {
@@ -331,20 +438,20 @@
                         location: 'Home Sweet Home',
                         temp: '-',
                         weather: 'sunny',
-                        clothing: '長途飛行舒適裝。寬鬆衣物，好穿脫的鞋子。',
+                        clothing: '飛機舒適裝。',
                         summary: '旅程結束，平安返家。',
                         accommodation: '-',
                         aurora: false,
                         timeline: [
-                            { time: '05:00', type: 'transport', title: '前往機場', desc: '預留充足時間辦理登機與托運。再見紐西蘭！', navQuery: 'Christchurch Airport' },
-                            { time: '07:20', type: 'transport', title: '飛機起飛', desc: 'Have a safe flight!', navQuery: '' }
+                            { time: '05:00', type: 'flight', title: '前往機場', desc: '搭乘 NZ586。預留時間辦理登機。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Christchurch_International_Airport_001.jpg/800px-Christchurch_International_Airport_001.jpg', navQuery: 'Christchurch Airport' },
+                            { time: '07:20', type: 'flight', title: '飛機起飛', desc: 'Goodbye New Zealand!', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Air_New_Zealand_777-300ER_ZK-OKQ_taking_off_at_LAX.jpg/800px-Air_New_Zealand_777-300ER_ZK-OKQ_taking_off_at_LAX.jpg', navQuery: '' }
                         ]
                     }
                 ]);
 
-                // 輔助功能圖標
+                // Icons
                 const getWeatherIcon = (weather) => {
-                    if (weather === 'sunny') return 'fa-solid fa-sun text-yellow-500';
+                    if (weather === 'sunny') return 'fa-solid fa-sun text-amber-500';
                     if (weather === 'cloudy') return 'fa-solid fa-cloud text-stone-400';
                     if (weather === 'partly-cloudy') return 'fa-solid fa-cloud-sun text-orange-300';
                     return 'fa-solid fa-sun';
@@ -352,16 +459,22 @@
 
                 const getTypeColor = (type) => {
                     if (type === 'food') return 'bg-orange-400';
-                    if (type === 'sight') return 'bg-stone-600';
+                    if (type === 'shopping') return 'bg-pink-400';
+                    if (type === 'activity') return 'bg-rose-500';
+                    if (type === 'sight') return 'bg-teal-500';
                     if (type === 'transport') return 'bg-blue-400';
+                    if (type === 'flight') return 'bg-sky-600';
                     if (type === 'sleep') return 'bg-indigo-400';
                     return 'bg-stone-400';
                 };
 
                 const getTypeIcon = (type) => {
                     if (type === 'food') return 'fa-solid fa-utensils';
+                    if (type === 'shopping') return 'fa-solid fa-bag-shopping';
+                    if (type === 'activity') return 'fa-solid fa-person-skiing';
                     if (type === 'sight') return 'fa-solid fa-camera';
                     if (type === 'transport') return 'fa-solid fa-car';
+                    if (type === 'flight') return 'fa-solid fa-plane-departure';
                     if (type === 'sleep') return 'fa-solid fa-bed';
                     return 'fa-solid fa-circle';
                 };
@@ -370,6 +483,9 @@
                     currentTab,
                     activeDay,
                     days,
+                    flightsInbound,
+                    flightsOutbound,
+                    bookingList,
                     getWeatherIcon,
                     getTypeColor,
                     getTypeIcon
