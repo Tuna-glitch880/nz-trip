@@ -111,7 +111,7 @@
                                     <p class="text-xs text-stone-400">Night Stay</p>
                                     <p class="text-sm font-bold text-stone-800 truncate">{{ days[activeDay].accommodation }}</p>
                                 </div>
-                                <a :href="'http://googleusercontent.com/maps.google.com/search/' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+                                <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(days[activeDay].accommodation)" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
                                     <i class="fa-solid fa-location-arrow text-xs"></i>
                                 </a>
                             </div>
@@ -149,7 +149,7 @@
 
                                     <div class="flex justify-between items-start">
                                         <h3 class="font-bold text-stone-800 text-lg leading-tight">{{ item.title }}</h3>
-                                        <a :href="'http://googleusercontent.com/maps.google.com/search/' + (item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
+                                        <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
                                             <i class="fa-solid fa-diamond-turn-right text-xl"></i>
                                         </a>
                                     </div>
@@ -295,6 +295,7 @@
                     { item: 'Deer Park Heights (上網申請密碼)', day: 'D4' },
                     { item: 'Shotover Jet 噴射快艇 (14:00)', day: 'D4' },
                     { item: '小藍企鵝歸巢 (20:00)', day: 'D5' },
+                    { item: 'The Fish Wife (11:30)', day: 'D6' },
                     { item: 'Smokey T\'s (18:00)', day: 'D6' },
                     { item: '基督城飯店接駁車 (前一晚預約)', day: 'D6' }
                 ];
@@ -318,7 +319,7 @@
                         location: 'Christchurch ➔ Franz Josef',
                         temp: '18°C',
                         weather: 'cloudy',
-                        clothing: '洋蔥式穿搭。平地舒適為主，但亞瑟隘口與冰川晚上風大偏冷，務必帶防風外套。',
+                        clothing: '洋蔥式穿搭。平地舒適為主，但亞瑟隘口與冰川晚上風大偏冷，務必隨身攜帶防風外套。',
                         summary: '抵達基督城，補給後穿越亞瑟隘口，夜宿冰川小鎮。',
                         accommodation: 'Franz Josef Montrose',
                         aurora: false,
@@ -358,7 +359,7 @@
                             { time: '16:30', type: 'sight', title: 'Lake Hawea Lookout', desc: '深藍色湖泊觀景台。', image: 'https://images.unsplash.com/photo-1505312760888-295325bbd22a?auto=format&fit=crop&q=80&w=800', navQuery: 'Lake Hawea Lookout',
                               travel: { time: '1h', road: 'SH6', note: '' } },
                             
-                            { time: '18:00', type: 'sight', title: '孤獨樹', desc: 'That Wanaka Tree，全世界最有名的一棵柳樹，孤獨地生長在湖水中。', image: 'https://images.unsplash.com/photo-1565016839352-71a7dd060205?q=80&w=800&auto=format&fit=crop', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
+                            { time: '18:00', type: 'sight', title: '孤獨樹', desc: 'That Wanaka Tree，全世界最有名的一棵柳樹，孤獨地生長在湖水中。建議從停車場沿著湖畔步道慢慢走過去，夕陽時分光線金黃最美。', image: 'https://images.unsplash.com/photo-1565016839352-71a7dd060205?q=80&w=800&auto=format&fit=crop', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
                               travel: { time: '15m', road: 'Local', note: '' } },
                             
                             { time: '19:30', type: 'food', title: 'Wanaka 晚餐', desc: '前往 Ardmore Street，這裡是瓦納卡最熱鬧的湖濱餐飲區。', image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800', navQuery: 'Ardmore Street Wanaka' }
@@ -447,14 +448,16 @@
                         accommodation: 'The Milano Christchurch',
                         aurora: false,
                         timeline: [
-                            { time: '10:15', type: 'sight', title: 'Moeraki 大圓石', desc: '海灘上散落著許多巨大、圓潤的石頭，像恐龍蛋一樣。傳說是毛利獨木舟翻船後的遺跡。', image: 'https://images.unsplash.com/photo-1589873961179-8b0df942976c?q=80&w=800&auto=format&fit=crop', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe',
-                              travel: { time: '1h 15m', road: 'SH1', note: '' } },
-                            { time: '11:15', type: 'activity', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', navQuery: 'Katiki Point Lighthouse',
+                            { time: '09:30', type: 'sight', title: 'Moeraki 大圓石', desc: '沙灘上的恐龍蛋巨石。', image: 'https://images.unsplash.com/photo-1589873961179-8b0df942976c?q=80&w=800&auto=format&fit=crop', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe',
+                              travel: { time: '1h', road: 'SH1', note: '' } },
+                            { time: '10:30', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', navQuery: 'Katiki Point Lighthouse',
                               travel: { time: '15m', road: 'Lighthouse Rd', note: '碎石路末段' } },
-                            { time: '12:30', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', navQuery: '27 Bulleid Road, Deborah',
+                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://images.unsplash.com/photo-1598514983221-a47738367a74?q=80&w=800&auto=format&fit=crop', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
+                              travel: { time: '10m', road: 'Local', note: '漁港小路' } },
+                            { time: '13:00', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', navQuery: '27 Bulleid Road, Deborah',
                               travel: { time: '30m', road: 'SH1', note: '' } },
-                            { time: '13:00', type: 'food', title: 'Oamaru 午餐', desc: '推薦 Star and Garter 或 Cucina。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Oamaru_Victorian_Precinct.jpg/800px-Oamaru_Victorian_Precinct.jpg', navQuery: 'Oamaru Victorian Precinct' },
-                            { time: '14:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct' },
+                            { time: '13:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct',
+                              travel: { time: '10m', road: 'Local', note: '' } },
                             { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch',
                               travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } },
                             { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=800', navQuery: 'Smokey T\'s Christchurch' },
