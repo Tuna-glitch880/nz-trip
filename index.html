@@ -60,8 +60,8 @@
                 <div class="flex overflow-x-auto overflow-y-hidden gap-3 hide-scrollbar touch-pan-x">
                     <button v-for="(day, index) in days" :key="index"
                         @click="activeDay = index"
-                        :class="activeDay === index ? 'bg-stone-800 text-white shadow-lg scale-105' : 'bg-white text-stone-400 border border-stone-200'"
-                        class="flex-shrink-0 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 flex flex-col items-center min-w-[60px]">
+                        :class="activeDay === index ? 'bg-stone-800 text-white shadow-md' : 'bg-white text-stone-400 border border-stone-200'"
+                        class="flex-shrink-0 px-4 py-2 rounded-2xl text-sm font-medium transition-colors duration-200 flex flex-col items-center min-w-[60px]">
                         <span class="text-[10px] opacity-80">{{ day.dateStr }}</span>
                         <span class="text-lg font-bold">D{{ index + 1 }}</span>
                     </button>
@@ -323,18 +323,14 @@
                         accommodation: 'Franz Josef Montrose',
                         aurora: false,
                         timeline: [
-                            { time: '13:25', type: 'flight', title: '抵達基督城', desc: 'NZ539 抵達。取車、買 SIM 卡。機場稍作整理。', image: 'https://images.unsplash.com/photo-1579728286202-a720dc2e08a6?auto=format&fit=crop&q=80&w=800', navQuery: 'Christchurch Airport' },
-                            
-                            { time: '15:00', type: 'shopping', title: 'Pak\'nSave 補給', desc: '全島最便宜超市。買水、晚餐(熟食)、明日早餐。', food: '烤雞、馬鈴薯沙拉', image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=800', navQuery: 'PAK\'nSAVE Hornby',
+                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車、購買 SIM 卡。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
+                            { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果，以及「今晚的熟食晚餐」和「明早的早餐」，因為今晚住的地方店家很少。', food: '烤雞、馬鈴薯沙拉、麵包', navQuery: 'PAK\'nSAVE Hornby',
                               travel: { time: '20m', road: 'SH1', note: '右駕適應中' } },
-                            
-                            { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '納尼亞傳奇巨石陣。壯觀的石灰岩群。', image: 'https://images.unsplash.com/photo-1598064379487-73595690b284?auto=format&fit=crop&q=80&w=800', navQuery: 'Kura Tawhiti / Castle Hill',
+                            { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '電影《納尼亞傳奇》終極決戰取景地。綠色山丘上散落著成千上萬的巨大石灰岩，壯觀且蒼涼。非常適合攀爬拍照。', image: 'https://images.unsplash.com/photo-1598064379487-73595690b284?q=80&w=800&auto=format&fit=crop', imgCredit: 'Castle Hill', navQuery: 'Kura Tawhiti / Castle Hill',
                               travel: { time: '1h 10m', road: 'SH73', note: '山路開始' } },
-                            
-                            { time: '18:30', type: 'transport', title: 'Arthur\'s Pass', desc: '進山區前最後公廁。留意 Kea 鸚鵡。', image: 'https://images.unsplash.com/photo-1695627196238-024508496150?auto=format&fit=crop&q=80&w=800', navQuery: 'Arthur\'s Pass Visitor Centre',
+                            { time: '18:30', type: 'transport', title: 'Arthur\'s Pass', desc: '進山區前最後的舒適公廁與遊客中心。運氣好的話可以看到高山鸚鵡 Kea（請勿餵食，牠們會咬橡膠條）。', navQuery: 'Arthur\'s Pass Visitor Centre',
                               travel: { time: '50m', road: 'SH73', note: '陡坡' } },
-                            
-                            { time: '21:30', type: 'sleep', title: '抵達 Franz Josef', desc: '住宿：Franz Josef Montrose。記得提前通知晚到。', image: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&q=80&w=800', navQuery: 'Franz Josef Montrose',
+                            { time: '21:30', type: 'sleep', title: '抵達住宿', desc: '請提前 Email 通知旅館會晚到 (Late check-in)。', warning: '最後 1.5 小時為山路夜車，野生動物(負鼠)多，請放慢車速。', navQuery: 'Franz Josef Montrose',
                               travel: { time: '2.5h', road: 'SH6', note: '夜路小心負鼠' } }
                         ]
                     },
@@ -343,7 +339,7 @@
                         location: 'Franz Josef ➔ Wanaka',
                         temp: '20°C',
                         weather: 'sunny',
-                        clothing: '輕便運動裝。早上走步道穿好走的鞋。',
+                        clothing: '輕便運動裝。早上走步道建議穿防滑好走的鞋子（會有碎石），下午在湖邊可穿休閒鞋。',
                         summary: '冰川健行、飛瀑與湖景，漫步瓦納卡。',
                         accommodation: 'Ruru Retreat',
                         aurora: false,
