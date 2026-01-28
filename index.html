@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // 定義裁切後的完美 Icon 網址 (與上面 meta 標籤一致)
         const perfectIconUrl = "https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left";
 
         const manifest = {
@@ -77,6 +76,12 @@
         .tab-inactive {
             color: #A8A29E;
         }
+        
+        /* 專門修復底部導航欄被 Home Indicator 遮擋的問題 */
+        .safe-area-nav {
+            padding-bottom: 1.5rem; /* 預設底部間距 */
+            padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); /* 適配 iPhone X+ */
+        }
     </style>
 </head>
 <body class="bg-stone-50 h-screen flex flex-col overflow-hidden">
@@ -107,7 +112,7 @@
             </div>
         </div>
 
-        <main ref="mainContent" class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-stone-50 relative scroll-smooth">
+        <main ref="mainContent" class="flex-1 overflow-y-auto hide-scrollbar pb-32 bg-stone-50 relative scroll-smooth">
             
             <div v-if="currentTab === 'trip'" class="pb-10 pt-4 px-4">
                 
@@ -292,7 +297,7 @@
 
         </main>
 
-        <nav class="bg-white/90 backdrop-blur-md border-t border-stone-100 px-6 py-4 flex justify-between items-center absolute bottom-0 w-full pb-8 z-40">
+        <nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-100 px-6 py-4 safe-area-nav flex justify-between items-center shadow-lg">
             <button @click="currentTab = 'trip'" 
                     :class="currentTab === 'trip' ? 'tab-active' : 'tab-inactive'" 
                     class="flex flex-col items-center gap-1 transition-all w-1/3">
@@ -560,7 +565,6 @@
                     currentTab,
                     activeDay,
                     days,
-                    mainContent, // 暴露 mainContent 給模板使用
                     flightsInbound,
                     flightsOutbound,
                     bookingList,
