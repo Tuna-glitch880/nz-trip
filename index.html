@@ -15,6 +15,7 @@
             background-color: #FAFAF9;
             color: #44403C;
             -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none; /* 防止整體頁面彈性拉動 */
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -46,19 +47,22 @@
 
     <div id="app" class="flex flex-col h-full max-w-md mx-auto bg-stone-50 w-full relative shadow-2xl">
         
-        <header class="px-6 pt-12 pb-2 bg-stone-50 sticky top-0 z-50 border-b border-stone-200 flex justify-between items-center shadow-sm">
+        <header class="px-6 pt-12 pb-2 bg-stone-50 sticky top-0 z-50 flex justify-between items-center">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
                 <p class="text-xs text-stone-500 mt-1">2026.02.15 - 02.21</p>
             </div>
-            </header>
+            <a href="tel:111" class="bg-white text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-sm active:scale-95 transition-transform">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+        </header>
 
         <main class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-stone-50 relative">
             
             <div v-if="currentTab === 'trip'" class="pb-10">
                 
-                <div class="sticky top-0 z-40 bg-stone-50 pt-4 pb-4 px-4 shadow-sm border-b border-stone-100">
-                    <div class="flex overflow-x-auto gap-3 hide-scrollbar">
+                <div class="sticky top-0 z-40 bg-stone-50 pt-0 pb-4 px-4 shadow-sm border-b border-stone-100">
+                    <div class="flex overflow-x-auto overflow-y-hidden gap-3 hide-scrollbar touch-pan-x">
                         <button v-for="(day, index) in days" :key="index"
                             @click="activeDay = index"
                             :class="activeDay === index ? 'bg-stone-800 text-white shadow-lg scale-105' : 'bg-white text-stone-400 border border-stone-200'"
@@ -107,7 +111,7 @@
                                     <p class="text-xs text-stone-400">Night Stay</p>
                                     <p class="text-sm font-bold text-stone-800 truncate">{{ days[activeDay].accommodation }}</p>
                                 </div>
-                                <a :href="'https://www.google.com/maps/search/?api=1&query=' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+                                <a :href="'http://googleusercontent.com/maps.google.com/search/' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
                                     <i class="fa-solid fa-location-arrow text-xs"></i>
                                 </a>
                             </div>
@@ -145,7 +149,7 @@
 
                                     <div class="flex justify-between items-start">
                                         <h3 class="font-bold text-stone-800 text-lg leading-tight">{{ item.title }}</h3>
-                                        <a :href="'https://www.google.com/maps/search/?api=1&query=' + (item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
+                                        <a :href="'http://googleusercontent.com/maps.google.com/search/' + (item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
                                             <i class="fa-solid fa-diamond-turn-right text-xl"></i>
                                         </a>
                                     </div>
@@ -449,8 +453,8 @@
                               travel: { time: '15m', road: 'Lighthouse Rd', note: '碎石路末段' } },
                             { time: '12:30', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', navQuery: '27 Bulleid Road, Deborah',
                               travel: { time: '30m', road: 'SH1', note: '' } },
-                            { time: '13:00', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct' },
-                            { time: '13:30', type: 'food', title: 'Oamaru 午餐', desc: '推薦 Star and Garter 或 Cucina。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Oamaru_Victorian_Precinct.jpg/800px-Oamaru_Victorian_Precinct.jpg', navQuery: 'Oamaru Victorian Precinct' },
+                            { time: '13:00', type: 'food', title: 'Oamaru 午餐', desc: '推薦 Star and Garter 或 Cucina。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Oamaru_Victorian_Precinct.jpg/800px-Oamaru_Victorian_Precinct.jpg', navQuery: 'Oamaru Victorian Precinct' },
+                            { time: '14:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct' },
                             { time: '17:30', type: 'food', title: '回程晚餐', desc: 'Ashburton 或 Rakaia 簡單吃。', image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=800', navQuery: 'Ashburton' },
                             { time: '18:30', type: 'sleep', title: '抵達住宿', desc: 'The Milano Christchurch。建議先去機場還車，搭「飯店接駁車」回來 (需提前確認)。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch',
                               travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } }
