@@ -45,33 +45,35 @@
 
     <div id="app" class="flex flex-col h-full max-w-md mx-auto bg-stone-50 w-full relative shadow-2xl">
         
-        <header class="px-6 pt-12 pb-2 bg-stone-50 sticky top-0 z-50 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
-                <p class="text-xs text-stone-500 mt-1">2026.02.15 - 02.21</p>
+        <div class="flex-none z-50 bg-stone-50 shadow-sm relative">
+            <header class="px-6 pt-12 pb-2 flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
+                    <p class="text-xs text-stone-500 mt-1">2026.02.15 - 02.21</p>
+                </div>
+                <a href="tel:111" class="bg-red-50 text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-sm active:scale-95 transition-transform">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+            </header>
+
+            <div v-if="currentTab === 'trip'" class="pb-4 px-4">
+                <div class="flex overflow-x-auto overflow-y-hidden gap-3 hide-scrollbar touch-pan-x">
+                    <button v-for="(day, index) in days" :key="index"
+                        @click="activeDay = index"
+                        :class="activeDay === index ? 'bg-stone-800 text-white shadow-lg scale-105' : 'bg-white text-stone-400 border border-stone-200'"
+                        class="flex-shrink-0 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 flex flex-col items-center min-w-[60px]">
+                        <span class="text-[10px] opacity-80">{{ day.dateStr }}</span>
+                        <span class="text-lg font-bold">D{{ index + 1 }}</span>
+                    </button>
+                </div>
             </div>
-            <a href="tel:111" class="bg-red-50 text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-sm active:scale-95 transition-transform">
-                <i class="fa-solid fa-phone"></i>
-            </a>
-        </header>
+        </div>
 
         <main class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-stone-50 relative">
             
-            <div v-if="currentTab === 'trip'" class="pb-10">
+            <div v-if="currentTab === 'trip'" class="pb-10 pt-4 px-4">
                 
-                <div class="sticky top-0 z-40 bg-stone-50 pt-0 pb-4 px-4 shadow-sm border-b border-stone-100">
-                    <div class="flex overflow-x-auto overflow-y-hidden gap-3 hide-scrollbar touch-pan-x">
-                        <button v-for="(day, index) in days" :key="index"
-                            @click="activeDay = index"
-                            :class="activeDay === index ? 'bg-stone-800 text-white shadow-lg scale-105' : 'bg-white text-stone-400 border border-stone-200'"
-                            class="flex-shrink-0 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 flex flex-col items-center min-w-[60px]">
-                            <span class="text-[10px] opacity-80">{{ day.dateStr }}</span>
-                            <span class="text-lg font-bold">D{{ index + 1 }}</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="px-4 pt-6 space-y-6">
+                <div class="space-y-6">
                     <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-100 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-stone-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
                         <div class="relative z-10">
@@ -109,7 +111,7 @@
                                     <p class="text-xs text-stone-400">Night Stay</p>
                                     <p class="text-sm font-bold text-stone-800 truncate">{{ days[activeDay].accommodation }}</p>
                                 </div>
-                                <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(days[activeDay].accommodation)" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+                                <a :href="'http://googleusercontent.com/maps.google.com/search/' + days[activeDay].accommodation" target="_blank" class="ml-auto bg-stone-800 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
                                     <i class="fa-solid fa-location-arrow text-xs"></i>
                                 </a>
                             </div>
@@ -147,7 +149,7 @@
 
                                     <div class="flex justify-between items-start">
                                         <h3 class="font-bold text-stone-800 text-lg leading-tight">{{ item.title }}</h3>
-                                        <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
+                                        <a :href="'http://googleusercontent.com/maps.google.com/search/' + (item.navQuery || item.title)" target="_blank" class="text-stone-300 hover:text-blue-500 px-2 -mr-2">
                                             <i class="fa-solid fa-diamond-turn-right text-xl"></i>
                                         </a>
                                     </div>
@@ -253,15 +255,23 @@
         </main>
 
         <nav class="bg-white/90 backdrop-blur-md border-t border-stone-100 px-6 py-4 flex justify-between items-center absolute bottom-0 w-full pb-8 z-40">
-            <button @click="currentTab = 'trip'" :class="currentTab === 'trip' ? 'tab-active' : 'tab-inactive'" class="flex flex-col items-center gap-1 transition-all w-1/3">
+            <button @click="currentTab = 'trip'" 
+                    :class="currentTab === 'trip' ? 'tab-active' : 'tab-inactive'" 
+                    class="flex flex-col items-center gap-1 transition-all w-1/3">
                 <i class="fa-solid fa-map-location-dot text-xl"></i>
                 <span class="text-xs font-medium">行程</span>
             </button>
-            <button @click="currentTab = 'booking'" :class="currentTab === 'booking' ? 'tab-active' : 'tab-inactive'" class="flex flex-col items-center gap-1 transition-all w-1/3">
+            
+            <button @click="currentTab = 'booking'" 
+                    :class="currentTab === 'booking' ? 'tab-active' : 'tab-inactive'" 
+                    class="flex flex-col items-center gap-1 transition-all w-1/3">
                 <i class="fa-solid fa-clipboard-list text-xl"></i>
                 <span class="text-xs font-medium">預訂</span>
             </button>
-            <button @click="currentTab = 'flight'" :class="currentTab === 'flight' ? 'tab-active' : 'tab-inactive'" class="flex flex-col items-center gap-1 transition-all w-1/3">
+
+            <button @click="currentTab = 'flight'" 
+                    :class="currentTab === 'flight' ? 'tab-active' : 'tab-inactive'" 
+                    class="flex flex-col items-center gap-1 transition-all w-1/3">
                 <i class="fa-solid fa-plane-up text-xl"></i>
                 <span class="text-xs font-medium">航班</span>
             </button>
@@ -276,16 +286,20 @@
                 const currentTab = ref('trip');
                 const activeDay = ref(0);
 
+                // 預訂提醒清單
                 const bookingList = [
                     { item: 'Franz Josef 住宿 (晚到通知)', day: 'D1' },
                     { item: 'Real Guns 射擊 (上午)', day: 'D3' },
                     { item: '皇后鎮滑翔傘 (下午)', day: 'D3' },
+                    { item: 'Jervois Steak House (20:15)', day: 'D3' },
                     { item: 'Deer Park Heights (上網申請密碼)', day: 'D4' },
                     { item: 'Shotover Jet 噴射快艇 (14:00)', day: 'D4' },
                     { item: '小藍企鵝歸巢 (20:00)', day: 'D5' },
+                    { item: 'Smokey T\'s (18:00)', day: 'D6' },
                     { item: '基督城飯店接駁車 (前一晚預約)', day: 'D6' }
                 ];
 
+                // 航班資料
                 const flightsInbound = [
                     { code: 'BR869', dep: 'TPE', arr: 'HKG', depTime: '12:25', arrTime: '14:20', depDate: '02/14 (Sat)', arrDate: '02/14', terminal: 'T2 -> T1' },
                     { code: 'NZ80', dep: 'HKG', arr: 'AKL', depTime: '17:50', arrTime: '09:40', depDate: '02/14 (Sat)', arrDate: '02/15 (+1)', terminal: 'T1 -> Int' },
@@ -376,7 +390,9 @@
                             { time: '14:00', type: 'activity', title: '高空滑翔傘', desc: '搭乘 Skyline 纜車上山，由教練帶領飛行。像鳥一樣俯瞰瓦卡蒂普湖與卓越山脈，最後降落在市區的小學操場。', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop', imgCredit: 'Queenstown', navQuery: 'Skyline Queenstown',
                               travel: { time: '25m', road: 'Local', note: '' } },
                             
-                            { time: '18:00', type: 'sight', title: '皇后鎮市區活動', desc: '晚餐後在湖邊散步，聽街頭藝人表演，逛逛 Queenstown Mall。', image: 'https://images.unsplash.com/photo-1589874838646-04283ee91e57?auto=format&fit=crop&q=80&w=800', navQuery: 'Queenstown Mall' }
+                            { time: '18:00', type: 'sight', title: '皇后鎮市區活動', desc: '晚餐後在湖邊散步，聽街頭藝人表演，逛逛 Queenstown Mall。', image: 'https://images.unsplash.com/photo-1589874838646-04283ee91e57?auto=format&fit=crop&q=80&w=800', navQuery: 'Queenstown Mall' },
+
+                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。', food: 'Signature Steak', image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=800', navQuery: 'Jervois Steak House Queenstown' }
                         ]
                     },
                     {
@@ -443,9 +459,11 @@
                               travel: { time: '30m', road: 'SH1', note: '' } },
                             { time: '13:00', type: 'food', title: 'Oamaru 午餐', desc: '推薦 Star and Garter 或 Cucina。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Oamaru_Victorian_Precinct.jpg/800px-Oamaru_Victorian_Precinct.jpg', navQuery: 'Oamaru Victorian Precinct' },
                             { time: '14:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct' },
-                            { time: '17:30', type: 'food', title: '回程晚餐', desc: 'Ashburton 或 Rakaia 簡單吃。', image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=800', navQuery: 'Ashburton' },
-                            { time: '18:30', type: 'sleep', title: '抵達住宿', desc: 'The Milano Christchurch。建議先去機場還車，搭「飯店接駁車」回來 (需提前確認)。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch',
-                              travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } }
+                            { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch',
+                              travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } },
+                            { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=800', navQuery: 'Smokey T\'s Christchurch' },
+                            { time: '19:30', type: 'transport', title: '機場還車', desc: '前往機場還車處。', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800', navQuery: 'Christchurch Airport Rental Car Return' },
+                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '搭乘接駁車或 Uber 回到 The Milano Christchurch。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch' }
                         ]
                     },
                     {
