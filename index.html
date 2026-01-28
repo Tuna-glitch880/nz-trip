@@ -60,8 +60,8 @@
                 <div class="flex overflow-x-auto overflow-y-hidden gap-3 hide-scrollbar touch-pan-x">
                     <button v-for="(day, index) in days" :key="index"
                         @click="activeDay = index"
-                        :class="activeDay === index ? 'bg-stone-800 text-white border-transparent' : 'bg-white text-stone-400 border-stone-200'"
-                        class="flex-shrink-0 px-4 py-2 rounded-2xl border text-sm font-medium transition-colors duration-200 flex flex-col items-center min-w-[60px]">
+                        :class="activeDay === index ? 'bg-stone-800 text-white shadow-md' : 'bg-white text-stone-400 border border-stone-200'"
+                        class="flex-shrink-0 px-4 py-2 rounded-2xl text-sm font-medium transition-colors duration-200 flex flex-col items-center min-w-[60px]">
                         <span class="text-[10px] opacity-80">{{ day.dateStr }}</span>
                         <span class="text-lg font-bold">D{{ index + 1 }}</span>
                     </button>
@@ -143,7 +143,7 @@
                                 </div>
 
                                 <div class="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-stone-100 active:scale-[0.99] transition-transform">
-                                    <div v-if="item.image" class="w-full h-32 rounded-xl bg-stone-200 mb-3 overflow-hidden relative group">
+                                    <div v-if="item.image" class="w-full h-40 rounded-xl bg-stone-200 mb-3 overflow-hidden relative group">
                                         <img :src="item.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="View">
                                     </div>
 
@@ -389,7 +389,7 @@
                             
                             { time: '18:00', type: 'sight', title: '皇后鎮市區活動', desc: '晚餐後在湖邊散步，聽街頭藝人表演，逛逛 Queenstown Mall。', navQuery: 'Queenstown Mall' },
 
-                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。', food: 'Signature Steak', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeP_-zPYFsJ--NC3jUbr6s7lzznmx_Upnk-g&s', navQuery: 'Jervois Steak House Queenstown' }
+                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown' }
                         ]
                     },
                     {
@@ -402,19 +402,19 @@
                         accommodation: 'Schist Rock Lodge',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'activity', title: 'Deer Park Heights', desc: '《魔戒》洛汗國難民逃難場景。這是一個可以開車上山的農場，沿途可以餵食綿羊、鹿、山羊，還能俯瞰機場與湖景。', warning: '需事先上網預約取得大門密碼。路面部分為碎石，請小心駕駛。', image: 'https://images.unsplash.com/photo-1549480628-91223253b811?q=80&w=800&auto=format&fit=crop', imgCredit: 'Deer Park', navQuery: 'Deer Park Heights',
+                            { time: '09:30', type: 'activity', title: 'Deer Park Heights', desc: '《魔戒》洛汗國難民逃難場景。這是一個可以開車上山的農場，沿途可以餵食綿羊、鹿、山羊，還能俯瞰機場與湖景。', warning: '需事先上網預約取得大門密碼。路面部分為碎石，請小心駕駛。', image: 'https://hola-viviana.com/wp-content/uploads/2024/12/deer-park-heights-21.webp', imgCredit: 'Deer Park', navQuery: 'Deer Park Heights',
                               travel: { time: '20m', road: 'Peninsula Rd', note: '路面不平' } },
                             
-                            { time: '12:30', type: 'food', title: 'Frankton 午餐', desc: 'Queenstown Central Shopping Centre。停車方便，有多樣餐廳選擇。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Frankton_Queenstown.jpg/800px-Frankton_Queenstown.jpg', navQuery: 'Queenstown Central Shopping Centre',
+                            { time: '12:30', type: 'food', title: 'Shopping Mall 午餐', desc: 'Queenstown Central Shopping Centre。停車方便，有多樣餐廳選擇。', image: 'https://cdn.prod.website-files.com/68211ee02d09deedb573daca/683fb6efde027dfc7eca97d7_6151291d7d6e904ee7fd5b29_Queenstown%2520Central%2520main%2520image%25201.jpeg', navQuery: 'Queenstown Central Shopping Centre',
                               travel: { time: '20m', road: 'Local', note: '' } },
 
-                            { time: '14:00', type: 'activity', title: 'Shotover Jet', desc: '皇后鎮最經典的「紅船」。在狹窄的沙特歐瓦河谷中以 85km/h 高速穿梭，並體驗 360 度大甩尾。', navQuery: 'Shotover Jet Queenstown',
+                            { time: '14:00', type: 'activity', title: 'Shotover Jet', desc: '皇后鎮最經典的「紅船」。在狹窄的沙特歐瓦河谷中以 85km/h 高速穿梭，並體驗 360 度大甩尾。', image: 'https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_122847/20240724100742_wg4VB/jpg', navQuery: 'Shotover Jet Queenstown',
                               travel: { time: '15m', road: 'Gorge Rd', note: '' } },
                             
-                            { time: '15:30', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', navQuery: 'Jones Family Fruit Stall',
+                            { time: '15:30', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', image: 'https://timtingtravel.com/wp-content/uploads/2024/10/16-18_Fruit-Sculpture_2.webp', navQuery: 'Jones Family Fruit Stall',
                               travel: { time: '45m', road: 'SH6', note: '河谷景觀' } },
                             
-                            { time: '17:30', type: 'sight', title: 'Omakau 市區逛逛', desc: '感受中奧塔哥的寧靜氛圍，欣賞古老的建築。晚餐後可在此觀賞星空。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Omakau_Main_Street.jpg/800px-Omakau_Main_Street.jpg', navQuery: 'Omakau',
+                            { time: '17:30', type: 'sight', title: 'Omakau 市區逛逛', desc: '感受中奧塔哥的寧靜氛圍，欣賞古老的建築。晚餐後可在此觀賞星空。', navQuery: 'Omakau',
                               travel: { time: '40m', road: 'SH85', note: '' } }
                         ]
                     },
@@ -428,13 +428,13 @@
                         accommodation: 'Private Luxury Townhouse',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'transport', title: 'Pig Route (SH85)', desc: '這是一條人煙稀少的內陸公路，沿途是金黃色的草海與荒涼壯闊的景色，非常有公路電影的感覺。', navQuery: 'Pig Route' },
-                            { time: '13:00', type: 'sight', title: '但尼丁火車站', desc: '參觀被譽為薑餅屋的「但尼丁火車站」。這座城市充滿蘇格蘭建築風情。', image: 'https://images.unsplash.com/photo-1580261942767-f274a44682c7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Dunedin Station', navQuery: 'Dunedin Railway Station',
+                            { time: '09:30', type: 'transport', title: 'Pig Route (SH85)', desc: '這是一條人煙稀少的內陸公路，沿途是金黃色的草海與荒涼壯闊的景色，非常有公路電影的感覺。', image: 'https://www.roamingdownunder.com/images/pigroot-descent1.jpg', navQuery: 'Pig Route' },
+                            { time: '13:00', type: 'sight', title: '但尼丁火車站', desc: '參觀被譽為薑餅屋的「但尼丁火車站」。這座城市充滿蘇格蘭建築風情。', image: 'https://rosy-arts.com/wp-content/uploads/2023/05/20191026_151010_DSC05497-1-1024x683.jpeg', imgCredit: 'Dunedin Station', navQuery: 'Dunedin Railway Station',
                               travel: { time: '2.5h', road: 'Pig Route', note: '荒涼內陸公路' } },
-                            { time: '14:30', type: 'sight', title: '鮑德溫街', desc: '世界最陡街道。挑戰走上去。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Baldwin_Street_Dunedin.jpg/800px-Baldwin_Street_Dunedin.jpg', navQuery: 'Baldwin Street' },
-                            { time: '15:30', type: 'sight', title: '奧塔哥大學', desc: '紐西蘭最古老大學，參觀鐘樓建築。', image: 'https://images.unsplash.com/photo-1596547101850-201662580718?auto=format&fit=crop&q=80&w=800', navQuery: 'University of Otago Clocktower' },
+                            { time: '14:30', type: 'sight', title: '鮑德溫街', desc: '世界最陡街道。挑戰走上去。', image: 'https://www.travelandtourworld.com/wp-content/uploads/2026/01/Baldwin-Street.jpg', navQuery: 'Baldwin Street' },
+                            { time: '15:30', type: 'sight', title: '奧塔哥大學', desc: '紐西蘭最古老大學，參觀鐘樓建築。', image: 'https://img.mweb.com.tw/thumb/307/1000x1000/%25E7%2595%2599%25E5%25AD%25B8/%25E7%25B4%2590%25E8%25A5%25BF%25E8%2598%25AD/University-of-Otago-%25E5%25A5%25A7%25E5%25A1%2594%25E5%2593%25A5%25E5%25A4%25A7%25E5%25AD%25B8/university-of-otago-campus-building.jpg', navQuery: 'University of Otago Clocktower' },
                             { time: '17:30', type: 'food', title: '市區晚餐', desc: '建議早點吃，前往半島看企鵝路程較遠。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Octagon_Dunedin.jpg/800px-The_Octagon_Dunedin.jpg', navQuery: 'The Octagon Dunedin' },
-                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', navQuery: 'Blue Penguins Pukekura',
+                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Little_Blue_Penguin.jpg', navQuery: 'Blue Penguins Pukekura',
                               travel: { time: '1h', road: 'Peninsula Rd', note: '路窄蜿蜒' } }
                         ]
                     },
@@ -448,21 +448,21 @@
                         accommodation: 'The Milano Christchurch',
                         aurora: false,
                         timeline: [
-                            { time: '09:30', type: 'sight', title: 'Moeraki 大圓石', desc: '海灘上散落著許多巨大、圓潤的石頭，像恐龍蛋一樣。傳說是毛利獨木舟翻船後的遺跡。', image: 'https://images.unsplash.com/photo-1589873961179-8b0df942976c?q=80&w=800&auto=format&fit=crop', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe',
+                            { time: '09:30', type: 'sight', title: 'Moeraki 大圓石', desc: '海灘上散落著許多巨大、圓潤的石頭，像恐龍蛋一樣。傳說是毛利獨木舟翻船後的遺跡。', image: 'https://i0.wp.com/devilstales.com/wp-content/uploads/New_Zealand/Moeraki_Boulders/moeraki03.jpg?resize=1000%2C666&ssl=1', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe',
                               travel: { time: '1h', road: 'SH1', note: '' } },
-                            { time: '10:30', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', navQuery: 'Katiki Point Lighthouse',
+                            { time: '10:30', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', image: 'https://i0.wp.com/juor2.com/wp-content/uploads/DSC_6910.jpg?resize=756%2C503&ssl=1', navQuery: 'Katiki Point Lighthouse',
                               travel: { time: '15m', road: 'Lighthouse Rd', note: '碎石路末段' } },
-                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://images.unsplash.com/photo-1598514983221-a47738367a74?q=80&w=800&auto=format&fit=crop', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
+                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
                               travel: { time: '10m', road: 'Local', note: '漁港小路' } },
-                            { time: '13:00', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', navQuery: '27 Bulleid Road, Deborah',
+                            { time: '13:00', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', image: 'https://dzpdbgwih7u1r.cloudfront.net/96a71398-d4ed-44ce-8a6d-94c1fc559493/9c385471-7c93-4952-9910-17e28ace9ddf/9c385471-7f15-4183-a18d-00d3028cb4c0/w1200h1200-54b77bbde54ee4d2349d672344da69a1.jpg', navQuery: '27 Bulleid Road, Deborah',
                               travel: { time: '30m', road: 'SH1', note: '' } },
-                            { time: '13:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://images.unsplash.com/photo-1627344738595-6572714210e7?q=80&w=800&auto=format&fit=crop', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct',
+                            { time: '13:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://img.fun-life.com.tw/new-zealand/oamaru-victorian-precinct/DSC00166.jpg', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct',
                               travel: { time: '10m', road: 'Local', note: '' } },
-                            { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch',
+                            { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', navQuery: 'The Milano Christchurch',
                               travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } },
-                            { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=800', navQuery: 'Smokey T\'s Christchurch' },
-                            { time: '19:30', type: 'transport', title: '機場還車', desc: '前往機場還車處。', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800', navQuery: 'Christchurch Airport Rental Car Return' },
-                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '搭乘接駁車或 Uber 回到 The Milano Christchurch。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800', navQuery: 'The Milano Christchurch' }
+                            { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://www.kkday.com/en-ph/blog/wp-content/uploads/smokey-Ts.jpeg', navQuery: 'Smokey T\'s Christchurch' },
+                            { time: '19:30', type: 'transport', title: '機場還車', desc: '前往機場還車處。', navQuery: 'Christchurch Airport Rental Car Return' },
+                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '搭乘接駁車或 Uber 回到 The Milano Christchurch。', navQuery: 'The Milano Christchurch' }
                         ]
                     },
                     {
