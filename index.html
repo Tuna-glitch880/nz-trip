@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>紐西蘭自駕行</title>
     
-    <link rel="icon" href="https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg?s=612x612&w=0&k=20&c=isCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=">
-    <link rel="apple-touch-icon" href="https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg?s=612x612&w=0&k=20&c=isCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=">
+    <link rel="icon" href="https://images.weserv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg&w=512&h=512&fit=cover&a=center&output=jpg">
+    <link rel="apple-touch-icon" href="https://images.weserv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg&w=512&h=512&fit=cover&a=center&output=jpg">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
+        // 定義裁切後的完美 Icon 網址
+        const perfectIconUrl = "https://images.weserv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg&w=512&h=512&fit=cover&a=center&output=jpg";
+
         const manifest = {
             "name": "紐西蘭自駕行",
             "short_name": "紐西蘭自駕",
@@ -26,11 +29,11 @@
             "background_color": "#FAFAF9",
             "theme_color": "#FAFAF9",
             "icons": [{
-                "src": "https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg?s=612x612&w=0&k=20&c=isCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=",
+                "src": perfectIconUrl,
                 "sizes": "192x192",
                 "type": "image/jpeg"
             }, {
-                "src": "https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg?s=612x612&w=0&k=20&c=isCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=",
+                "src": perfectIconUrl,
                 "sizes": "512x512",
                 "type": "image/jpeg"
             }]
@@ -73,13 +76,6 @@
         }
         .tab-inactive {
             color: #A8A29E;
-        }
-        /* 固定頂部區域樣式 */
-        .fixed-top-area {
-            background-color: #FAFAF9; /* stone-50 */
-            z-index: 50;
-            position: relative;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
