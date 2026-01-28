@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <main class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-stone-50 relative">
+        <main ref="mainContent" class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-stone-50 relative scroll-smooth">
             
             <div v-if="currentTab === 'trip'" class="pb-10 pt-4 px-4">
                 
@@ -279,12 +279,20 @@
     </div>
 
     <script>
-        const { createApp, ref } = Vue;
+        const { createApp, ref, watch } = Vue;
 
         createApp({
             setup() {
                 const currentTab = ref('trip');
                 const activeDay = ref(0);
+                const mainContent = ref(null); // 參考主要內容區域
+
+                // 監聽 activeDay 變化，切換天數時自動捲動到頂部
+                watch(activeDay, () => {
+                    if (mainContent.value) {
+                        mainContent.value.scrollTop = 0;
+                    }
+                });
 
                 // 預訂提醒清單
                 const bookingList = [
@@ -433,8 +441,8 @@
                               travel: { time: '2.5h', road: 'Pig Route', note: '荒涼內陸公路' } },
                             { time: '14:30', type: 'sight', title: '鮑德溫街', desc: '世界最陡街道。挑戰走上去。', image: 'https://www.travelandtourworld.com/wp-content/uploads/2026/01/Baldwin-Street.jpg', navQuery: 'Baldwin Street' },
                             { time: '15:30', type: 'sight', title: '奧塔哥大學', desc: '紐西蘭最古老大學，參觀鐘樓建築。', image: 'https://img.mweb.com.tw/thumb/307/1000x1000/%25E7%2595%2599%25E5%25AD%25B8/%25E7%25B4%2590%25E8%25A5%25BF%25E8%2598%25AD/University-of-Otago-%25E5%25A5%25A7%25E5%25A1%2594%25E5%2593%25A5%25E5%25A4%25A7%25E5%25AD%25B8/university-of-otago-campus-building.jpg', navQuery: 'University of Otago Clocktower' },
-                            { time: '17:30', type: 'food', title: '市區晚餐', desc: '建議早點吃，前往半島看企鵝路程較遠。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Octagon_Dunedin.jpg/800px-The_Octagon_Dunedin.jpg', navQuery: 'The Octagon Dunedin' },
-                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Little_Blue_Penguin.jpg', navQuery: 'Blue Penguins Pukekura',
+                            { time: '17:30', type: 'food', title: '市區晚餐', desc: '建議早點吃，前往半島看企鵝路程較遠。', navQuery: 'The Octagon Dunedin' },
+                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', image: 'https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vqw34w2exgyyacpcplua/%E8%8F%B2%E5%88%A9%E6%99%AE%E5%B3%B6%E8%A7%80%E5%85%89%E7%A5%9E%E4%BB%99%E5%B0%8F%E4%BC%81%E9%B5%9D%E6%AD%B8%E5%B7%A2%E4%B9%8B%E6%97%85.jpg', navQuery: 'Blue Penguins Pukekura',
                               travel: { time: '1h', road: 'Peninsula Rd', note: '路窄蜿蜒' } }
                         ]
                     },
@@ -452,7 +460,7 @@
                               travel: { time: '1h', road: 'SH1', note: '' } },
                             { time: '10:30', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', image: 'https://i0.wp.com/juor2.com/wp-content/uploads/DSC_6910.jpg?resize=756%2C503&ssl=1', navQuery: 'Katiki Point Lighthouse',
                               travel: { time: '15m', road: 'Lighthouse Rd', note: '碎石路末段' } },
-                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
+                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://img.fun-life.com.tw/new-zealand/nins-bin/DSC01209.jpg', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
                               travel: { time: '10m', road: 'Local', note: '漁港小路' } },
                             { time: '13:00', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', image: 'https://dzpdbgwih7u1r.cloudfront.net/96a71398-d4ed-44ce-8a6d-94c1fc559493/9c385471-7c93-4952-9910-17e28ace9ddf/9c385471-7f15-4183-a18d-00d3028cb4c0/w1200h1200-54b77bbde54ee4d2349d672344da69a1.jpg', navQuery: '27 Bulleid Road, Deborah',
                               travel: { time: '30m', road: 'SH1', note: '' } },
@@ -514,6 +522,7 @@
                     currentTab,
                     activeDay,
                     days,
+                    mainContent, // 暴露 mainContent 給模板使用
                     flightsInbound,
                     flightsOutbound,
                     bookingList,
