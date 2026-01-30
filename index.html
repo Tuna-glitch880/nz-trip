@@ -60,12 +60,12 @@
         /* 交通連接線：主線 */
         .transit-line {
             position: absolute;
-            left: 28px; /* 對齊左側欄位中心 (56px/2) */
-            top: 40px;  /* 從圖示中心位置開始 */
+            left: 28px;
+            top: 40px;
             width: 2px;
             background-color: #E7E5E4;
             z-index: 0;
-            height: 100%; /* 連接到下一個項目 */
+            height: 100%;
         }
         
         /* 隱藏最後一個項目的線 */
@@ -83,8 +83,8 @@
         
         /* 底部導航欄：增加更多底部間距，讓它往上浮 */
         .safe-area-nav {
-            padding-bottom: 3rem; /* 加大基礎間距 */
-            padding-bottom: calc(3rem + env(safe-area-inset-bottom)); /* 加上 Safe Area */
+            padding-bottom: 3rem;
+            padding-bottom: calc(3rem + env(safe-area-inset-bottom));
         }
     </style>
 </head>
@@ -183,9 +183,7 @@
 
                             <div class="flex gap-4 relative z-10">
                                 <div class="flex flex-col items-center gap-1 min-w-[56px] relative">
-                                    
                                     <span class="text-xs font-bold text-stone-400 bg-stone-50 px-1 relative z-10">{{ item.time }}</span>
-                                    
                                     <div :class="getTypeColor(item.type)" class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md ring-4 ring-stone-50 text-sm z-10 relative">
                                         <i :class="getTypeIcon(item.type)"></i>
                                     </div>
@@ -336,14 +334,13 @@
                 const activeDay = ref(0);
                 const mainContent = ref(null);
 
-                // Watcher to reset scroll position when activeDay changes
                 watch(activeDay, () => {
                     if (mainContent.value) {
                         mainContent.value.scrollTop = 0;
                     }
                 });
 
-                // 預訂提醒清單
+                // 預訂提醒清單 (已刪除接駁車)
                 const bookingList = [
                     { item: 'Franz Josef 住宿 (晚到通知)', day: 'D1' },
                     { item: 'Real Guns 射擊 (上午)', day: 'D3' },
@@ -353,8 +350,7 @@
                     { item: 'Shotover Jet 噴射快艇 (14:00)', day: 'D4' },
                     { item: '小藍企鵝歸巢 (20:00)', day: 'D5' },
                     { item: 'The Fish Wife (11:30)', day: 'D6' },
-                    { item: 'Smokey T\'s (18:00)', day: 'D6' },
-                    { item: '基督城飯店接駁車 (前一晚預約)', day: 'D6' }
+                    { item: 'Smokey T\'s (18:00)', day: 'D6' }
                 ];
 
                 // 航班資料
@@ -381,7 +377,7 @@
                         accommodation: 'Franz Josef Montrose',
                         aurora: false,
                         timeline: [
-                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車、購買 SIM 卡。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
+                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
                             { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果，以及「今晚的熟食晚餐」和「明早的早餐」，因為今晚住的地方店家很少。', food: '烤雞、馬鈴薯沙拉、麵包', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Pak%27n_Save_Wanganui.JPG', navQuery: 'PAK\'nSAVE Hornby',
                               travel: { time: '20m', road: 'SH1', note: '右駕適應中' } },
                             { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '電影《納尼亞傳奇》終極決戰取景地。綠色山丘上散落著成千上萬的巨大石灰岩，壯觀且蒼涼。非常適合攀爬拍照。', image: 'https://cdn.sanity.io/images/n1o990un/production/77826f528cd9e61b86bed5b4e810729af03d0b46-1200x900.jpg', imgCredit: 'Castle Hill', navQuery: 'Kura Tawhiti / Castle Hill',
@@ -518,8 +514,7 @@
                             { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', navQuery: 'The Milano Christchurch',
                               travel: { time: '3.5h', road: 'SH1', note: '長途駕駛' } },
                             { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://www.kkday.com/en-ph/blog/wp-content/uploads/smokey-Ts.jpeg', navQuery: 'Smokey T\'s Christchurch' },
-                            { time: '19:30', type: 'transport', title: '機場還車', desc: '前往機場還車處。', navQuery: 'Christchurch Airport Rental Car Return' },
-                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '搭乘接駁車或 Uber 回到 The Milano Christchurch。', navQuery: 'The Milano Christchurch' }
+                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '回到 The Milano Christchurch 休息。', navQuery: 'The Milano Christchurch' }
                         ]
                     },
                     {
@@ -532,7 +527,8 @@
                         accommodation: '-',
                         aurora: false,
                         timeline: [
-                            { time: '05:00', type: 'transport', title: '前往機場', desc: '預留充足時間辦理登機與托運。再見紐西蘭！', navQuery: 'Christchurch Airport' },
+                            { time: '04:40', type: 'transport', title: '前往機場', desc: '開車前往基督城機場。', navQuery: 'Christchurch Airport' },
+                            { time: '05:00', type: 'transport', title: '機場還車', desc: '依照指示前往租車公司還車點，完成還車手續。', navQuery: 'Christchurch Airport Rental Car Return' },
                             { time: '07:20', type: 'flight', title: '飛機起飛', desc: 'Have a safe flight!', navQuery: '' }
                         ]
                     }
