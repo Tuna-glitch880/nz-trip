@@ -250,13 +250,12 @@
                                     <span class="font-mono font-bold text-stone-700 select-all">{{ book.orderId }}</span>
                                 </div>
 
-                                <div class="bg-yellow-50 p-2 rounded-lg text-xs text-yellow-800 leading-relaxed border border-yellow-100 flex gap-2">
-                                    <i class="fa-solid fa-circle-info mt-0.5"></i>
-                                    <span>{{ book.notes }}</span>
+                                <div class="text-xs text-stone-500 leading-relaxed pl-1 pt-1">
+                                    <span class="font-bold text-stone-400 mr-1">Note:</span>{{ book.notes }}
                                 </div>
 
-                                <a v-if="book.link" :href="book.link" target="_blank" class="block w-full text-center bg-stone-800 text-white py-2 rounded-xl text-sm font-medium mt-3 active:scale-95 transition-transform">
-                                    查看訂單 / 官方網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                                <a v-if="book.link" :href="book.link" target="_blank" class="block w-full text-center bg-stone-800 text-white py-2 rounded-xl text-sm font-medium mt-3 active:scale-95 transition-transform hover:bg-stone-700">
+                                    查看訂單
                                 </a>
                             </div>
                         </div>
@@ -363,7 +362,7 @@
                     }
                 });
 
-                // 預訂詳細清單 (Updated)
+                // 預訂詳細清單 (Updated with clean style and new icon)
                 const bookingList = [
                     {
                         name: 'Skytrek 滑翔傘',
@@ -372,7 +371,7 @@
                         orderId: 'CUR269680',
                         link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
                         notes: '需提前1小時致電 +64-080-075-987-3，確認天氣狀況並再次確認訂單。',
-                        icon: 'fa-solid fa-wind',
+                        icon: 'fa-solid fa-paper-plane', // Changed to paper-plane (gliding)
                         color: 'text-blue-500',
                         bg: 'bg-blue-50'
                     },
