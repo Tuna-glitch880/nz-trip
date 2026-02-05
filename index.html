@@ -239,7 +239,7 @@
                                     </div>
                                     <div>
                                         <h3 class="font-bold text-stone-800 text-base">{{ book.name }}</h3>
-                                        <p class="text-xs font-mono text-stone-500 bg-stone-200 inline-block px-1.5 rounded">{{ book.day }} • {{ book.time }}</p>
+                                        <p class="text-xs font-mono text-stone-500 bg-stone-200 inline-block px-1.5 rounded">{{ book.time }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -362,23 +362,21 @@
                     }
                 });
 
-                // 預訂詳細清單 (Updated with clean style and new icon)
+                // 預訂詳細清單 (Clean & Original Style)
                 const bookingList = [
                     {
                         name: 'Skytrek 滑翔傘',
-                        day: 'D3 (2/17)',
-                        time: '15:00',
+                        time: '2/17 15:00',
                         orderId: 'CUR269680',
                         link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
                         notes: '需提前1小時致電 +64-080-075-987-3，確認天氣狀況並再次確認訂單。',
-                        icon: 'fa-solid fa-paper-plane', // Changed to paper-plane (gliding)
+                        icon: 'fa-solid fa-paper-plane', // New Icon
                         color: 'text-blue-500',
                         bg: 'bg-blue-50'
                     },
                     {
                         name: 'Jervois Steak House',
-                        day: 'D3 (2/17)',
-                        time: '20:15',
+                        time: '2/17 20:15',
                         orderId: '請查看確認信',
                         link: 'https://www.jervoissteakhouse.co.nz/queenstown',
                         notes: '保留時間通常僅 10-15 分鐘，請務必準時抵達。',
@@ -388,8 +386,7 @@
                     },
                     {
                         name: 'Oxbow 飛靶射擊',
-                        day: 'D4 (2/18)',
-                        time: '14:30',
+                        time: '2/18 14:30',
                         orderId: '請查看確認信',
                         link: 'https://www.oxbow.co.nz/',
                         notes: '請提前 15 分鐘抵達 Gibbston Valley 現場填寫免責聲明。',
@@ -399,8 +396,7 @@
                     },
                     {
                         name: 'Smokey T\'s',
-                        day: 'D6 (2/20)',
-                        time: '18:00',
+                        time: '2/20 18:00',
                         orderId: '請查看確認信',
                         link: 'https://www.smokeyts.com/',
                         notes: '人氣 BBQ 餐廳，建議提早 5-10 分鐘抵達。',
