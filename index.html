@@ -60,12 +60,12 @@
         /* 交通連接線：主線 */
         .transit-line {
             position: absolute;
-            left: 28px;
-            top: 40px;
+            left: 28px; /* 對齊左側欄位中心 */
+            top: 40px;  /* 從圖示中心位置開始 */
             width: 2px;
             background-color: #E7E5E4;
             z-index: 0;
-            height: 100%;
+            height: 100%; /* 連接到下一個項目 */
         }
         
         /* 隱藏最後一個項目的線 */
@@ -334,15 +334,16 @@
                 const activeDay = ref(0);
                 const mainContent = ref(null);
 
+                // Watcher to reset scroll position when activeDay changes
                 watch(activeDay, () => {
                     if (mainContent.value) {
                         mainContent.value.scrollTop = 0;
                     }
                 });
 
-                // 預訂提醒清單 (已刪除接駁車)
+                // 預訂提醒清單
                 const bookingList = [
-                    { item: 'Franz Josef 住宿 (晚到通知)', day: 'D1' },
+                    { item: 'Fairlie 住宿 (晚到通知)', day: 'D1' },
                     { item: 'Real Guns 射擊 (上午)', day: 'D3' },
                     { item: '皇后鎮滑翔傘 (下午)', day: 'D3' },
                     { item: 'Jervois Steak House (20:15)', day: 'D3' },
@@ -369,52 +370,45 @@
                 const days = ref([
                     {
                         dateStr: '02/15 Sun',
-                        location: 'Christchurch ➔ Franz Josef',
+                        location: 'Christchurch ➔ Fairlie',
                         temp: '18°C',
-                        weather: 'cloudy',
-                        clothing: '洋蔥式穿搭。平地舒適為主，但亞瑟隘口與冰川晚上風大偏冷，務必隨身攜帶防風外套。',
-                        summary: '抵達基督城，補給後穿越亞瑟隘口，夜宿冰川小鎮。',
-                        accommodation: 'Franz Josef Montrose',
+                        weather: 'sunny',
+                        clothing: '洋蔥式穿搭。平地舒適，但蒂卡波地區晚上風大，請準備外套。',
+                        summary: '抵達基督城，補給後直奔 Fairlie，享受寧靜鄉村夜晚。',
+                        accommodation: '9 Gordon Street, Fairlie',
                         aurora: false,
                         timeline: [
                             { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
-                            { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果，以及「今晚的熟食晚餐」和「明早的早餐」，因為今晚住的地方店家很少。', food: '烤雞、馬鈴薯沙拉、麵包', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Pak%27n_Save_Wanganui.JPG', navQuery: 'PAK\'nSAVE Hornby',
+                            { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果。', food: '烤雞、馬鈴薯沙拉、麵包', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Pak%27n_Save_Wanganui.JPG', navQuery: 'PAK\'nSAVE Hornby',
                               travel: { time: '20m', road: 'SH1', note: '右駕適應中' } },
-                            { time: '17:20', type: 'sight', title: 'Castle Hill', desc: '電影《納尼亞傳奇》終極決戰取景地。綠色山丘上散落著成千上萬的巨大石灰岩，壯觀且蒼涼。非常適合攀爬拍照。', image: 'https://cdn.sanity.io/images/n1o990un/production/77826f528cd9e61b86bed5b4e810729af03d0b46-1200x900.jpg', imgCredit: 'Castle Hill', navQuery: 'Kura Tawhiti / Castle Hill',
-                              travel: { time: '1h 10m', road: 'SH73', note: '山路開始' } },
-                            { time: '18:30', type: 'transport', title: 'Arthur\'s Pass', desc: '進山區前最後的舒適公廁與遊客中心。運氣好的話可以看到高山鸚鵡 Kea（請勿餵食，牠們會咬橡膠條）。', image: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Visitor_centre_in_Arthur%27s_Pass_NP.jpg', navQuery: 'Arthur\'s Pass Visitor Centre',
-                              travel: { time: '50m', road: 'SH73', note: '陡坡' } },
-                            { time: '21:30', type: 'sleep', title: '抵達住宿', desc: '請提前 Email 通知旅館會晚到 (Late check-in)。', warning: '最後 1.5 小時為山路夜車，野生動物(負鼠)多，請放慢車速。', navQuery: 'Franz Josef Montrose',
-                              travel: { time: '2.5h', road: 'SH6', note: '夜路小心負鼠' } }
+                            { time: '17:30', type: 'food', title: 'The Village Inn', desc: '位於 Geraldine 的傳統酒吧餐廳。推薦在抵達 Fairlie 前先在此享用晚餐，選擇較多。', food: '牛排、漢堡、炸魚薯條', image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop', navQuery: 'The Village Inn Geraldine',
+                              travel: { time: '2h', road: 'SH1 -> SH79', note: '平原公路' } },
+                            { time: '19:00', type: 'sleep', title: '抵達住宿', desc: '入住 9 Gordon Street。這是一個寧靜的住宿點，晚上光害少，可以在院子看星星。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop', navQuery: '9 Gordon Street, Fairlie',
+                              travel: { time: '30m', road: 'SH79', note: '鄉間道路' } }
                         ]
                     },
                     {
                         dateStr: '02/16 Mon',
-                        location: 'Franz Josef ➔ Wanaka',
-                        temp: '20°C',
-                        weather: 'sunny',
-                        clothing: '輕便運動裝。早上走步道建議穿防滑好走的鞋子（會有碎石），下午在湖邊可穿休閒鞋。',
-                        summary: '冰川健行、飛瀑與湖景，漫步瓦納卡。',
+                        location: 'Fairlie ➔ Mt Cook ➔ Wanaka',
+                        temp: '16°C',
+                        weather: 'partly-cloudy',
+                        clothing: '戶外健行裝。庫克山區風大且氣候多變，建議穿防風外套並多層次穿搭。',
+                        summary: '漫步庫克山胡克谷步道，欣賞藍色牛奶湖，翻越林迪斯隘口。',
                         accommodation: 'Ruru Retreat',
                         aurora: false,
                         timeline: [
-                            { time: '10:20', type: 'sight', title: '冰川步道', desc: 'Valley Walk 來回 1.5 小時，遠眺冰川前緣。風大請穿外套。', image: 'https://wowiwalkers.com/wp-content/uploads/2021/03/franzjosephglacierwalkheader.jpg', imgCredit: 'Franz Josef', navQuery: 'Franz Josef Glacier Car Park',
-                              travel: { time: '10m', road: 'Local', note: '' } },
-                            
-                            { time: '12:40', type: 'food', title: 'Fox Glacier 午餐', desc: '小鎮上覓食，可以試試炸魚薯條、紐西蘭漢堡或羊腿。', food: 'The White Pub', navQuery: 'The White Pub',
-                              travel: { time: '25m', road: 'SH6', note: '山路' } },
-                            
-                            { time: '13:40', type: 'shopping', title: 'Fox Glacier 逛逛', desc: '飯後散步，參觀當地紀念品店 (The Hobnail Shop)，挑選特色小物。', image: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Fox_Glacier_main_street_MRD.jpg', navQuery: 'Fox Glacier Guide Building' },
-                            
-                            { time: '15:00', type: 'sight', title: 'Thunder Creek Falls', desc: '雷河瀑布。走路 5 分鐘可達，高達 28 公尺的壯觀瀑布。', image: 'https://www.campervannewzealand.co.nz/assets/img/blog/499.png', navQuery: 'Thunder Creek Falls',
-                              travel: { time: '1h', road: 'Haast Pass', note: '景觀公路' } },
-                            
-                            { time: '16:30', type: 'sight', title: 'Lake Hawea Lookout', desc: '深藍色湖泊觀景台。', image: 'https://pimg.1px.tw/renttaofan/1587911557-3930238589.jpg', navQuery: 'Lake Hawea Lookout',
-                              travel: { time: '1h', road: 'SH6', note: '' } },
-                            
-                            { time: '18:00', type: 'sight', title: '孤獨樹', desc: 'That Wanaka Tree，全世界最有名的一棵柳樹，孤獨地生長在湖水中。建議從停車場沿著湖畔步道慢慢走過去，夕陽時分光線金黃最美。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
-                              travel: { time: '15m', road: 'Local', note: '' } },
-                            
+                            { time: '08:00', type: 'food', title: 'Fairlie Bakehouse', desc: '全紐西蘭最好吃的派！必點鮭魚培根派或豬肉派。建議外帶一個當午餐。', food: 'Salmon & Bacon Pie', image: 'https://www.fairliebakehouse.co.nz/images/slideshow/slide1.jpg', navQuery: 'Fairlie Bakehouse',
+                              travel: { time: '5m', road: 'Local', note: '' } },
+                            { time: '09:00', type: 'sight', title: 'Lake Tekapo', desc: '參觀牧羊人教堂 (Church of the Good Shepherd)，拍攝湖畔美景。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Church_of_the_Good_Shepherd_at_Lake_Tekapo_New_Zealand_05.jpg/1280px-Church_of_the_Good_Shepherd_at_Lake_Tekapo_New_Zealand_05.jpg', navQuery: 'Church of the Good Shepherd',
+                              travel: { time: '30m', road: 'SH8', note: '湖景公路' } },
+                            { time: '10:00', type: 'sight', title: 'Lake Pukaki', desc: '紐西蘭最美的藍色牛奶湖。在 Peter\'s Lookout 停車拍照，背景是雄偉的庫克山。', image: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Lake_Pukaki_and_Mount_Cook.jpg', navQuery: 'Peter\'s Lookout',
+                              travel: { time: '30m', road: 'SH8', note: '湖景公路' } },
+                            { time: '11:30', type: 'activity', title: 'Hooker Valley Track', desc: '庫克山最經典步道。經過三座吊橋，終點是浮著冰山的冰河湖。來回約 3-4 小時，平緩好走。', warning: '吊橋風大請小心。紫外線強，請擦防曬。', image: 'https://www.doc.govt.nz/globalassets/images/places/canterbury/aoraki/hooker-valley-track/hooker-valley-track-gallery-1.jpg', navQuery: 'Hooker Valley Track Carpark',
+                              travel: { time: '45m', road: 'SH80', note: '絕美景觀路' } },
+                            { time: '16:00', type: 'food', title: 'High Country Salmon', desc: '路過 Twizel 附近的鮭魚養殖場，可以買新鮮生魚片在車上吃。', food: '新鮮帝王鮭生魚片', image: 'https://www.highcountrysalmon.co.nz/cdn/shop/files/High_Country_Salmon_Farm_Twizel_New_Zealand.jpg?v=1614290000', navQuery: 'High Country Salmon',
+                              travel: { time: '40m', road: 'SH80 -> SH8', note: '' } },
+                            { time: '18:30', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
+                              travel: { time: '2h', road: 'SH8 -> SH8A', note: '林迪斯隘口' } },
                             { time: '19:30', type: 'food', title: 'Wanaka 晚餐', desc: '前往 Ardmore Street，這裡是瓦納卡最熱鬧的湖濱餐飲區。', navQuery: 'Ardmore Street Wanaka' }
                         ]
                     },
