@@ -58,15 +58,14 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* 交通連接線：主線 */
-        /* 線條設定為 height: 100% 以連接下一個項目 */
         .transit-line {
             position: absolute;
-            left: 28px; /* 對齊左側欄位中心 */
-            top: 40px;  /* 從圖示中心位置開始 */
+            left: 28px;
+            top: 40px;
             width: 2px;
             background-color: #E7E5E4;
             z-index: 0;
-            height: 100%; 
+            height: 100%;
         }
         
         /* 隱藏最後一個項目的線 */
@@ -82,7 +81,7 @@
             color: #A8A29E;
         }
         
-        /* 底部導航欄：增加更多底部間距，讓它往上浮 (Version 3.1) */
+        /* 底部導航欄：上移 */
         .safe-area-nav {
             padding-bottom: 3rem;
             padding-bottom: calc(3rem + env(safe-area-inset-bottom));
@@ -375,14 +374,14 @@
                         clothing: '洋蔥式穿搭。平地舒適，但蒂卡波地區晚上風大，請準備外套。',
                         summary: '抵達基督城，補給後直奔 Fairlie，享受寧靜鄉村夜晚。',
                         accommodation: '9 Gordon Street, Fairlie',
-                        aurora: false,
+                        aurora: true,
                         timeline: [
                             { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
                             { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果。', food: '烤雞、馬鈴薯沙拉、麵包', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Pak%27n_Save_Wanganui.JPG', navQuery: 'PAK\'nSAVE Hornby',
                               travel: { time: '20m', road: 'SH1', note: '右駕適應中' } },
                             { time: '17:30', type: 'food', title: 'The Village Inn', desc: '位於 Geraldine 的傳統酒吧餐廳。推薦在抵達 Fairlie 前先在此享用晚餐，選擇較多。', food: '牛排、漢堡、炸魚薯條', image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop', navQuery: 'The Village Inn Geraldine',
                               travel: { time: '2h', road: 'SH1 -> SH79', note: '平原公路' } },
-                            { time: '19:00', type: 'sleep', title: '抵達住宿', desc: '入住 9 Gordon Street。這是一個寧靜的住宿點，晚上光害少，可以在院子看星星。', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop', navQuery: '9 Gordon Street, Fairlie',
+                            { time: '19:00', type: 'sleep', title: '抵達住宿', desc: '入住 9 Gordon Street。這是一個寧靜的住宿點，晚上光害少，可以在院子看星星。幸運的話肉眼可見極光！', navQuery: '9 Gordon Street, Fairlie',
                               travel: { time: '30m', road: 'SH79', note: '鄉間道路' } }
                         ]
                     },
@@ -396,15 +395,15 @@
                         accommodation: 'Ruru Retreat',
                         aurora: false,
                         timeline: [
-                            { time: '08:00', type: 'food', title: 'Fairlie Bakehouse', desc: '全紐西蘭最好吃的派！必點鮭魚培根派或豬肉派。建議外帶一個當午餐。', food: 'Salmon & Bacon Pie', image: 'https://www.fairliebakehouse.co.nz/images/slideshow/slide1.jpg', navQuery: 'Fairlie Bakehouse',
+                            { time: '08:00', type: 'food', title: 'Fairlie Bakehouse', desc: '全紐西蘭最好吃的派！必點鮭魚培根派或豬肉派。建議外帶一個當午餐。', food: 'Salmon & Bacon Pie', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpr2VMAWtJeRmgP92UOIjLhVWoUEreb8xPtQ&s', navQuery: 'Fairlie Bakehouse',
                               travel: { time: '5m', road: 'Local', note: '' } },
-                            { time: '09:00', type: 'sight', title: 'Lake Tekapo', desc: '參觀牧羊人教堂 (Church of the Good Shepherd)，拍攝湖畔美景。', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Church_of_the_Good_Shepherd_at_Lake_Tekapo_New_Zealand_05.jpg/1280px-Church_of_the_Good_Shepherd_at_Lake_Tekapo_New_Zealand_05.jpg', navQuery: 'Church of the Good Shepherd',
+                            { time: '09:00', type: 'sight', title: 'Lake Tekapo', desc: '參觀牧羊人教堂 (Church of the Good Shepherd)，拍攝湖畔美景。', image: 'https://images.locationscout.net/2023/04/church-of-good-shepherd-new-zealand-m8y3.webp?h=1400&q=80', navQuery: 'Church of the Good Shepherd',
                               travel: { time: '30m', road: 'SH8', note: '湖景公路' } },
-                            { time: '10:00', type: 'sight', title: 'Lake Pukaki', desc: '紐西蘭最美的藍色牛奶湖。在 Peter\'s Lookout 停車拍照，背景是雄偉的庫克山。', image: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Lake_Pukaki_and_Mount_Cook.jpg', navQuery: 'Peter\'s Lookout',
+                            { time: '10:00', type: 'sight', title: 'Lake Pukaki', desc: '紐西蘭最美的藍色牛奶湖。在 Peter\'s Lookout 停車拍照，背景是雄偉的庫克山。', image: 'https://chrisandwrensworld.com/wp-content/uploads/2024/07/lake-pukaki-and-mount-cook.jpg', navQuery: 'Peter\'s Lookout',
                               travel: { time: '30m', road: 'SH8', note: '湖景公路' } },
-                            { time: '11:30', type: 'activity', title: 'Hooker Valley Track', desc: '庫克山最經典步道。經過三座吊橋，終點是浮著冰山的冰河湖。來回約 3-4 小時，平緩好走。', warning: '吊橋風大請小心。紫外線強，請擦防曬。', image: 'https://www.doc.govt.nz/globalassets/images/places/canterbury/aoraki/hooker-valley-track/hooker-valley-track-gallery-1.jpg', navQuery: 'Hooker Valley Track Carpark',
+                            { time: '11:30', type: 'activity', title: 'Hooker Valley Track', desc: '庫克山最經典步道。經過三座吊橋，終點是浮著冰山的冰河湖。來回約 3-4 小時，平緩好走。', warning: '吊橋風大請小心。紫外線強，請擦防曬。', image: 'https://digitaltravelcouple.com/wp-content/uploads/2023/02/hooker-valley-track-mount-cook.webp', navQuery: 'Hooker Valley Track Carpark',
                               travel: { time: '45m', road: 'SH80', note: '絕美景觀路' } },
-                            { time: '16:00', type: 'food', title: 'High Country Salmon', desc: '路過 Twizel 附近的鮭魚養殖場，可以買新鮮生魚片在車上吃。', food: '新鮮帝王鮭生魚片', image: 'https://www.highcountrysalmon.co.nz/cdn/shop/files/High_Country_Salmon_Farm_Twizel_New_Zealand.jpg?v=1614290000', navQuery: 'High Country Salmon',
+                            { time: '16:00', type: 'food', title: 'High Country Salmon', desc: '路過 Twizel 附近的鮭魚養殖場，可以買新鮮生魚片在車上吃。', food: '新鮮帝王鮭生魚片', image: 'https://flyblog.cc/wp-content/uploads/2025/09/country-salmon-10.jpg', navQuery: 'High Country Salmon',
                               travel: { time: '40m', road: 'SH80 -> SH8', note: '' } },
                             { time: '18:30', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
                               travel: { time: '2h', road: 'SH8 -> SH8A', note: '林迪斯隘口' } },
@@ -417,15 +416,15 @@
                         temp: '22°C',
                         weather: 'sunny',
                         clothing: '舒適長褲與墨鏡。參加滑翔傘陽光刺眼，墨鏡必備。',
-                        summary: '體驗迷宮樂趣，探索淘金小鎮，高空飛越皇后鎮。',
+                        summary: '參觀酒莊建築，探索淘金小鎮，高空飛越皇后鎮。',
                         accommodation: 'Rendezvous Heritage Hotel',
                         aurora: false,
                         timeline: [
-                            { time: '09:30', type: 'activity', title: 'Puzzling World', desc: '瓦納卡幻惑世界 (暫定)。這裡有巨大的戶外迷宮與視覺錯覺館，非常適合全家同樂，不需要英文也能玩得開心。', image: 'https://www.puzzlingworld.co.nz/assets/Uploads/Home-Page-Banner-Images/PW-Maze-Aerial-Shot__ScaleMaxWidthWzE5MjBd.jpg', navQuery: 'Puzzling World Wanaka',
-                              travel: { time: '5m', road: 'Local', note: '' } },
+                            { time: '10:00', type: 'sight', title: 'Cardrona Distillery', desc: '卡德羅納蒸餾廠。不參加導覽，單純參觀美麗的石造建築，在庭院喝一杯 Tasting Flight，拍拍美照。', image: 'https://www.cardronadistillery.co.nz/cdn/shop/files/61380f3a9ea9377b02993e6f_6135239431317063caef5f79_neon_2-78-3.jpg?v=1665199414', navQuery: 'Cardrona Distillery',
+                              travel: { time: '20m', road: 'Cardrona Valley', note: '' } },
                             
                             { time: '11:30', type: 'transport', title: 'Crown Range Summit Lookout', desc: '紐西蘭海拔最高的公路。在最高點可以俯瞰整個之字形山路與皇后鎮盆地，景色絕佳。', image: 'https://i0.wp.com/www.edwud.com/wp-content/uploads/2022/01/queenstown-airport-from-crown-range-lookout.jpg?fit=2000%2C1333&ssl=1', navQuery: 'Crown Range Summit Lookout',
-                              travel: { time: '1h', road: 'Crown Range', note: '陡峭髮夾彎' } },
+                              travel: { time: '20m', road: 'Crown Range', note: '陡峭髮夾彎' } },
                             
                             { time: '12:30', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮。可以在白金漢街散步，吃個派，感受復古氛圍。', food: 'Arrowtown Bakery', navQuery: 'Buckingham Street, Arrowtown',
                               travel: { time: '30m', road: 'Zig Zag Rd', note: '下坡小心' } },
@@ -448,13 +447,13 @@
                         accommodation: 'Schist Rock Lodge',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'activity', title: 'Kiwi Park', desc: '奇異鳥生態公園。就在纜車站旁。保證能看到紐西蘭國寶 Kiwi Bird (在暗房內)，還有各種珍稀鳥類。', image: 'https://www.kiwibird.co.nz/assets/Uploads/Kiwi-Park-Queenstown-Kiwi-House.jpg', navQuery: 'Kiwi Park Queenstown',
+                            { time: '09:30', type: 'activity', title: 'Kiwi Park', desc: '奇異鳥生態公園。就在纜車站旁。保證能看到紐西蘭國寶 Kiwi Bird (在暗房內)，還有各種珍稀鳥類。', image: 'https://www.newzealand.com/assets/externally-managed-assets/tbd-assets/tbd-folder-10068978/img-1714046175-3185-3098839-tbd-asset__aWxvdmVrZWxseQo_CropResizeWzk0MCw1MzAsOTAsImpwZyJd.jpg', navQuery: 'Kiwi Park Queenstown',
                               travel: { time: '5m', road: 'Local', note: '' } },
                             
                             { time: '12:00', type: 'food', title: 'Shopping Mall 午餐', desc: 'Queenstown Central Shopping Centre (Frankton)。離開市區往東走，這裡停車方便，餐廳選擇多。', image: 'https://cdn.prod.website-files.com/68211ee02d09deedb573daca/683fb6efde027dfc7eca97d7_6151291d7d6e904ee7fd5b29_Queenstown%2520Central%2520main%2520image%25201.jpeg', navQuery: 'Queenstown Central Shopping Centre',
                               travel: { time: '20m', road: 'Local', note: '' } },
 
-                            { time: '14:30', type: 'activity', title: 'Oxbow 飛靶射擊', desc: '位於 Gibbston Valley。體驗 Clay Target Shooting，用散彈槍射擊飛靶，非常過癮且安全的活動。', image: 'https://www.oxbow.co.nz/wp-content/uploads/2020/10/Clay-Target-Shooting-Oxbow-Adventure-Co-Queenstown-New-Zealand-1.jpg', navQuery: 'Oxbow Adventure Co',
+                            { time: '14:30', type: 'activity', title: 'Oxbow 飛靶射擊', desc: '位於 Gibbston Valley。體驗 Clay Target Shooting，用散彈槍射擊飛靶，非常過癮且安全的活動。', image: 'https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_728/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xtmdxuvclwqej3sxr8vp/皇后鎮Oxbow探險體驗.jpg', navQuery: 'Oxbow Adventure Co',
                               travel: { time: '20m', road: 'SH6', note: '順路' } },
                             
                             { time: '16:00', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', image: 'https://timtingtravel.com/wp-content/uploads/2024/10/16-18_Fruit-Sculpture_2.webp', navQuery: 'Jones Family Fruit Stall',
