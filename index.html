@@ -58,6 +58,7 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* 交通連接線：主線 */
+        /* 線條設定為 height: 100% 以連接下一個項目 */
         .transit-line {
             position: absolute;
             left: 28px; /* 對齊左側欄位中心 */
@@ -65,7 +66,7 @@
             width: 2px;
             background-color: #E7E5E4;
             z-index: 0;
-            height: 100%; /* 連接到下一個項目 */
+            height: 100%; 
         }
         
         /* 隱藏最後一個項目的線 */
@@ -81,7 +82,7 @@
             color: #A8A29E;
         }
         
-        /* 底部導航欄：增加更多底部間距，讓它往上浮 */
+        /* 底部導航欄：增加更多底部間距，讓它往上浮 (Version 3.1) */
         .safe-area-nav {
             padding-bottom: 3rem;
             padding-bottom: calc(3rem + env(safe-area-inset-bottom));
@@ -344,12 +345,10 @@
                 // 預訂提醒清單
                 const bookingList = [
                     { item: 'Fairlie 住宿 (晚到通知)', day: 'D1' },
-                    { item: 'Real Guns 射擊 (上午)', day: 'D3' },
-                    { item: '皇后鎮滑翔傘 (下午)', day: 'D3' },
+                    { item: 'Skytrek 滑翔傘 (15:00)', day: 'D3' },
                     { item: 'Jervois Steak House (20:15)', day: 'D3' },
-                    { item: 'Deer Park Heights (上網申請密碼)', day: 'D4' },
-                    { item: 'Shotover Jet 噴射快艇 (14:00)', day: 'D4' },
-                    { item: '小藍企鵝歸巢 (20:00)', day: 'D5' },
+                    { item: 'Oxbow 飛靶射擊 (14:30)', day: 'D4' },
+                    { item: '但尼丁企鵝 (預約狀況確認)', day: 'D5' },
                     { item: 'The Fish Wife (11:30)', day: 'D6' },
                     { item: 'Smokey T\'s (18:00)', day: 'D6' }
                 ];
@@ -417,26 +416,26 @@
                         location: 'Wanaka ➔ Queenstown',
                         temp: '22°C',
                         weather: 'sunny',
-                        clothing: '舒適長褲與墨鏡。因為要進行射擊活動，建議穿方便活動的長褲；下午滑翔傘陽光刺眼，墨鏡必備。',
-                        summary: '挑戰實彈射擊，行駛最高公路，高空俯瞰皇后鎮。',
+                        clothing: '舒適長褲與墨鏡。參加滑翔傘陽光刺眼，墨鏡必備。',
+                        summary: '體驗迷宮樂趣，探索淘金小鎮，高空飛越皇后鎮。',
                         accommodation: 'Rendezvous Heritage Hotel',
                         aurora: false,
                         timeline: [
-                            { time: '10:00', type: 'activity', title: 'Real Guns 射擊', desc: '位於 Cardrona 谷地，體驗真實軍用槍械（如狙擊槍、散彈槍）的震撼後座力。', warning: '射擊時聲音巨大，請務必佩戴店家提供的耳罩與護目鏡。', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZuZsyO0R1e4nZDWMjnJuq5AAb0DRNWhNhQ&s', imgCredit: 'Cardrona Valley', navQuery: 'Real Guns New Zealand',
-                              travel: { time: '20m', road: 'Cardrona Valley', note: '' } },
+                            { time: '09:30', type: 'activity', title: 'Puzzling World', desc: '瓦納卡幻惑世界 (暫定)。這裡有巨大的戶外迷宮與視覺錯覺館，非常適合全家同樂，不需要英文也能玩得開心。', image: 'https://www.puzzlingworld.co.nz/assets/Uploads/Home-Page-Banner-Images/PW-Maze-Aerial-Shot__ScaleMaxWidthWzE5MjBd.jpg', navQuery: 'Puzzling World Wanaka',
+                              travel: { time: '5m', road: 'Local', note: '' } },
                             
                             { time: '11:30', type: 'transport', title: 'Crown Range Summit Lookout', desc: '紐西蘭海拔最高的公路。在最高點可以俯瞰整個之字形山路與皇后鎮盆地，景色絕佳。', image: 'https://i0.wp.com/www.edwud.com/wp-content/uploads/2022/01/queenstown-airport-from-crown-range-lookout.jpg?fit=2000%2C1333&ssl=1', navQuery: 'Crown Range Summit Lookout',
-                              travel: { time: '20m', road: 'Crown Range', note: '陡峭髮夾彎' } },
+                              travel: { time: '1h', road: 'Crown Range', note: '陡峭髮夾彎' } },
                             
-                            { time: '12:30', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮，白金漢街上有許多 19 世紀建築。推薦去買個派坐在草地上吃。', food: 'Arrowtown Bakery 鹿肉派 (Venison Pie)', navQuery: 'Buckingham Street, Arrowtown',
+                            { time: '12:30', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮。可以在白金漢街散步，吃個派，感受復古氛圍。', food: 'Arrowtown Bakery', navQuery: 'Buckingham Street, Arrowtown',
                               travel: { time: '30m', road: 'Zig Zag Rd', note: '下坡小心' } },
                             
-                            { time: '14:00', type: 'activity', title: '高空滑翔傘', desc: '搭乘 Skyline 纜車上山，由教練帶領飛行。像鳥一樣俯瞰瓦卡蒂普湖與卓越山脈，最後降落在市區的小學操場。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', imgCredit: 'Queenstown', navQuery: 'Skyline Queenstown',
-                              travel: { time: '25m', road: 'Local', note: '' } },
+                            { time: '15:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '集合地點：45 Camp Street。請提前 15 分鐘抵達。從皇冠峰跳下，享受 15-20 分鐘的空中飛行，風景壯麗。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', imgCredit: 'Skytrek', navQuery: 'Skytrek Hang Gliding & Paragliding',
+                              travel: { time: '25m', road: 'Local', note: '預留停車時間' } },
                             
-                            { time: '18:00', type: 'sight', title: '皇后鎮市區活動', desc: '晚餐後在湖邊散步，聽街頭藝人表演，逛逛 Queenstown Mall。', navQuery: 'Queenstown Mall' },
+                            { time: '17:00', type: 'sight', title: '自由活動', desc: '滑翔傘結束後，回到市區。可以回飯店梳洗，或在湖邊散步、逛街、吃冰淇淋。', navQuery: 'Queenstown Mall' },
 
-                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown' }
+                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。離滑翔傘集合點走路僅 5 分鐘。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown' }
                         ]
                     },
                     {
@@ -444,24 +443,24 @@
                         location: 'Queenstown ➔ Omakau',
                         temp: '15°C',
                         weather: 'partly-cloudy',
-                        clothing: '保暖防風。噴射快艇風速極快，體感溫度低。晚上在中奧塔哥看極光非常冷，請準備厚外套。',
-                        summary: '魔戒鹿園餵食，噴射快艇甩尾，入住觀星勝地。',
+                        clothing: '休閒舒適。今天行程比較輕鬆，穿好走的鞋子即可。',
+                        summary: '觀察奇異鳥，體驗飛靶射擊，入住奧塔哥鄉間。',
                         accommodation: 'Schist Rock Lodge',
                         aurora: true,
                         timeline: [
-                            { time: '09:30', type: 'activity', title: 'Deer Park Heights', desc: '《魔戒》洛汗國難民逃難場景。這是一個可以開車上山的農場，沿途可以餵食綿羊、鹿、山羊，還能俯瞰機場與湖景。', warning: '需事先上網預約取得大門密碼。路面部分為碎石，請小心駕駛。', image: 'https://hola-viviana.com/wp-content/uploads/2024/12/deer-park-heights-21.webp', imgCredit: 'Deer Park', navQuery: 'Deer Park Heights',
-                              travel: { time: '20m', road: 'Peninsula Rd', note: '路面不平' } },
+                            { time: '09:30', type: 'activity', title: 'Kiwi Park', desc: '奇異鳥生態公園。就在纜車站旁。保證能看到紐西蘭國寶 Kiwi Bird (在暗房內)，還有各種珍稀鳥類。', image: 'https://www.kiwibird.co.nz/assets/Uploads/Kiwi-Park-Queenstown-Kiwi-House.jpg', navQuery: 'Kiwi Park Queenstown',
+                              travel: { time: '5m', road: 'Local', note: '' } },
                             
-                            { time: '12:30', type: 'food', title: 'Shopping Mall 午餐', desc: 'Queenstown Central Shopping Centre。停車方便，有多樣餐廳選擇。', image: 'https://cdn.prod.website-files.com/68211ee02d09deedb573daca/683fb6efde027dfc7eca97d7_6151291d7d6e904ee7fd5b29_Queenstown%2520Central%2520main%2520image%25201.jpeg', navQuery: 'Queenstown Central Shopping Centre',
+                            { time: '12:00', type: 'food', title: 'Shopping Mall 午餐', desc: 'Queenstown Central Shopping Centre (Frankton)。離開市區往東走，這裡停車方便，餐廳選擇多。', image: 'https://cdn.prod.website-files.com/68211ee02d09deedb573daca/683fb6efde027dfc7eca97d7_6151291d7d6e904ee7fd5b29_Queenstown%2520Central%2520main%2520image%25201.jpeg', navQuery: 'Queenstown Central Shopping Centre',
                               travel: { time: '20m', road: 'Local', note: '' } },
 
-                            { time: '14:00', type: 'activity', title: 'Shotover Jet', desc: '皇后鎮最經典的「紅船」。在狹窄的沙特歐瓦河谷中以 85km/h 高速穿梭，並體驗 360 度大甩尾。', image: 'https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_122847/20240724100742_wg4VB/jpg', navQuery: 'Shotover Jet Queenstown',
-                              travel: { time: '15m', road: 'Gorge Rd', note: '' } },
+                            { time: '14:30', type: 'activity', title: 'Oxbow 飛靶射擊', desc: '位於 Gibbston Valley。體驗 Clay Target Shooting，用散彈槍射擊飛靶，非常過癮且安全的活動。', image: 'https://www.oxbow.co.nz/wp-content/uploads/2020/10/Clay-Target-Shooting-Oxbow-Adventure-Co-Queenstown-New-Zealand-1.jpg', navQuery: 'Oxbow Adventure Co',
+                              travel: { time: '20m', road: 'SH6', note: '順路' } },
                             
-                            { time: '15:30', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', image: 'https://timtingtravel.com/wp-content/uploads/2024/10/16-18_Fruit-Sculpture_2.webp', navQuery: 'Jones Family Fruit Stall',
-                              travel: { time: '45m', road: 'SH6', note: '河谷景觀' } },
+                            { time: '16:00', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', image: 'https://timtingtravel.com/wp-content/uploads/2024/10/16-18_Fruit-Sculpture_2.webp', navQuery: 'Jones Family Fruit Stall',
+                              travel: { time: '25m', road: 'SH6', note: '河谷景觀' } },
                             
-                            { time: '17:30', type: 'sight', title: 'Omakau 市區逛逛', desc: '感受中奧塔哥的寧靜氛圍，欣賞古老的建築。晚餐後可在此觀賞星空。', navQuery: 'Omakau',
+                            { time: '17:30', type: 'sleep', title: '抵達住宿', desc: '抵達 Schist Rock Lodge。享受中奧塔哥的寧靜傍晚。', navQuery: 'Omakau',
                               travel: { time: '40m', road: 'SH85', note: '' } }
                         ]
                     },
@@ -470,7 +469,7 @@
                         location: 'Omakau ➔ Dunedin',
                         temp: '16°C',
                         weather: 'cloudy',
-                        clothing: '極度保暖。白天市區觀光可輕鬆穿，但晚上看企鵝是在海邊吹海風，非常冷，請穿上你帶的所有保暖衣物（毛帽、手套）。',
+                        clothing: '極度保暖。晚上在海邊看企鵝非常冷，請穿上你帶的所有保暖衣物（毛帽、手套）。',
                         summary: '走 Pig Route 公路，探索蘇格蘭風情古城與企鵝。',
                         accommodation: 'Private Luxury Townhouse',
                         aurora: true,
