@@ -226,23 +226,45 @@
             <div v-if="currentTab === 'booking'" class="space-y-6 animate-fade-in p-4 pb-10">
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100">
                     <h2 class="text-lg font-bold text-stone-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-check text-green-500"></i>
-                        預訂提醒清單
+                        <i class="fa-solid fa-ticket text-indigo-500"></i>
+                        我的預訂
                     </h2>
-                    <div class="space-y-3">
-                        <div v-for="(book, idx) in bookingList" :key="idx" class="flex items-center justify-between p-3 bg-stone-50 rounded-xl hover:bg-stone-100 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-stone-300"></div>
-                                <span class="text-sm font-medium text-stone-700">{{ book.item }}</span>
+                    
+                    <div class="space-y-4">
+                        <div v-for="(book, idx) in bookingList" :key="idx" class="bg-stone-50 rounded-2xl p-4 border border-stone-100 shadow-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div :class="[book.bg, book.color]" class="w-10 h-10 rounded-full flex items-center justify-center text-lg">
+                                        <i :class="book.icon"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-stone-800 text-base">{{ book.name }}</h3>
+                                        <p class="text-xs font-mono text-stone-500 bg-stone-200 inline-block px-1.5 rounded">{{ book.day }} • {{ book.time }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="text-xs bg-stone-200 text-stone-600 px-2 py-1 rounded font-mono">{{ book.day }}</span>
+
+                            <div class="ml-13 space-y-2 mt-3">
+                                <div class="flex justify-between items-center text-sm border-b border-stone-200 pb-2">
+                                    <span class="text-stone-400">訂單編號</span>
+                                    <span class="font-mono font-bold text-stone-700 select-all">{{ book.orderId }}</span>
+                                </div>
+
+                                <div class="bg-yellow-50 p-2 rounded-lg text-xs text-yellow-800 leading-relaxed border border-yellow-100 flex gap-2">
+                                    <i class="fa-solid fa-circle-info mt-0.5"></i>
+                                    <span>{{ book.notes }}</span>
+                                </div>
+
+                                <a v-if="book.link" :href="book.link" target="_blank" class="block w-full text-center bg-stone-800 text-white py-2 rounded-xl text-sm font-medium mt-3 active:scale-95 transition-transform">
+                                    查看訂單 / 官方網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="bg-blue-50 rounded-2xl p-6 text-center">
-                    <i class="fa-solid fa-calendar-check text-3xl text-blue-300 mb-2"></i>
-                    <p class="text-sm text-blue-800 font-medium">請務必將所有票券截圖存在手機中，以備無網路時使用。</p>
+                <div class="bg-blue-50 rounded-2xl p-4 text-center">
+                    <p class="text-xs text-blue-800 font-medium opacity-80">建議將此頁面或訂單確認信截圖保存。</p>
                 </div>
             </div>
 
@@ -341,15 +363,52 @@
                     }
                 });
 
-                // 預訂提醒清單
+                // 預訂詳細清單 (Updated)
                 const bookingList = [
-                    { item: 'Fairlie 住宿 (晚到通知)', day: 'D1' },
-                    { item: 'Skytrek 滑翔傘 (15:00)', day: 'D3' },
-                    { item: 'Jervois Steak House (20:15)', day: 'D3' },
-                    { item: 'Oxbow 飛靶射擊 (14:30)', day: 'D4' },
-                    { item: '但尼丁企鵝 (預約狀況確認)', day: 'D5' },
-                    { item: 'The Fish Wife (11:30)', day: 'D6' },
-                    { item: 'Smokey T\'s (18:00)', day: 'D6' }
+                    {
+                        name: 'Skytrek 滑翔傘',
+                        day: 'D3 (2/17)',
+                        time: '15:00',
+                        orderId: 'CUR269680',
+                        link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
+                        notes: '需提前1小時致電 +64-080-075-987-3，確認天氣狀況並再次確認訂單。',
+                        icon: 'fa-solid fa-wind',
+                        color: 'text-blue-500',
+                        bg: 'bg-blue-50'
+                    },
+                    {
+                        name: 'Jervois Steak House',
+                        day: 'D3 (2/17)',
+                        time: '20:15',
+                        orderId: '請查看確認信',
+                        link: 'https://www.jervoissteakhouse.co.nz/queenstown',
+                        notes: '保留時間通常僅 10-15 分鐘，請務必準時抵達。',
+                        icon: 'fa-solid fa-utensils',
+                        color: 'text-orange-500',
+                        bg: 'bg-orange-50'
+                    },
+                    {
+                        name: 'Oxbow 飛靶射擊',
+                        day: 'D4 (2/18)',
+                        time: '14:30',
+                        orderId: '請查看確認信',
+                        link: 'https://www.oxbow.co.nz/',
+                        notes: '請提前 15 分鐘抵達 Gibbston Valley 現場填寫免責聲明。',
+                        icon: 'fa-solid fa-crosshairs',
+                        color: 'text-red-500',
+                        bg: 'bg-red-50'
+                    },
+                    {
+                        name: 'Smokey T\'s',
+                        day: 'D6 (2/20)',
+                        time: '18:00',
+                        orderId: '請查看確認信',
+                        link: 'https://www.smokeyts.com/',
+                        notes: '人氣 BBQ 餐廳，建議提早 5-10 分鐘抵達。',
+                        icon: 'fa-solid fa-fire-burner',
+                        color: 'text-stone-600',
+                        bg: 'bg-stone-100'
+                    }
                 ];
 
                 // 航班資料
@@ -429,10 +488,10 @@
                             { time: '12:30', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮。可以在白金漢街散步，吃個派，感受復古氛圍。', food: 'Arrowtown Bakery', navQuery: 'Buckingham Street, Arrowtown',
                               travel: { time: '30m', road: 'Zig Zag Rd', note: '下坡小心' } },
                             
-                            { time: '15:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '集合地點：45 Camp Street。請提前 15 分鐘抵達。從皇冠峰跳下，享受 15-20 分鐘的空中飛行，風景壯麗。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', imgCredit: 'Skytrek', navQuery: 'Skytrek Hang Gliding & Paragliding',
+                            { time: '15:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '集合地點：45 Camp Street。請提前 15 分鐘抵達。從皇冠峰跳下，享受 15-20 分鐘的空中飛行，風景壯麗。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', imgCredit: 'Skytrek', navQuery: 'Man Street Car Park',
                               travel: { time: '25m', road: 'Local', note: '預留停車時間' } },
                             
-                            { time: '17:00', type: 'sight', title: '自由活動', desc: '滑翔傘結束後，回到市區。可以回飯店梳洗，或在湖邊散步、逛街、吃冰淇淋。', navQuery: 'Queenstown Mall' },
+                            { time: '17:00', type: 'sight', title: '皇后鎮逛逛', desc: '滑翔傘結束後回到市區，車留在停車場，在湖邊散步、逛街、吃冰淇淋。', navQuery: 'Queenstown Mall' },
 
                             { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。離滑翔傘集合點走路僅 5 分鐘。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown' }
                         ]
