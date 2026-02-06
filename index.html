@@ -172,7 +172,8 @@
 
                             <div v-if="item.travel" class="ml-14 mb-4 pl-4 relative z-10">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <i class="fa-solid fa-car text-stone-400 text-xs"></i> <span class="text-xs font-bold text-stone-600">{{ item.travel.time }}</span>
+                                    <i class="fa-solid fa-car text-stone-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-stone-600">{{ item.travel.time }}</span>
                                     <span class="text-[10px] bg-stone-200 px-2 py-0.5 rounded text-stone-500">{{ item.travel.road }}</span>
                                 </div>
                                 <p v-if="item.travel.note" class="text-[10px] text-red-500 bg-red-50 inline-block px-2 py-1 rounded">
@@ -468,9 +469,11 @@
                               travel: { time: '45min', road: 'SH80', note: '絕美景觀路' } },
                             { time: '16:00', type: 'food', title: 'High Country Salmon', desc: '路過 Twizel 附近的鮭魚養殖場，可以買新鮮生魚片在車上吃。', food: '新鮮帝王鮭生魚片', image: 'https://flyblog.cc/wp-content/uploads/2025/09/country-salmon-10.jpg', navQuery: 'High Country Salmon',
                               travel: { time: '40min', road: 'SH80 -> SH8', note: '' } },
-                            { time: '18:30', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
-                              travel: { time: '2h', road: 'SH8 -> SH8A', note: '林迪斯隘口' } },
-                            { time: '19:30', type: 'food', title: 'Wanaka 晚餐', desc: '前往 Ardmore Street，這裡是瓦納卡最熱鬧的湖濱餐飲區。', navQuery: 'Ardmore Street Wanaka' }
+                            { time: '17:15', type: 'sight', title: 'Lake Hawea Lookout', desc: '瓦納卡湖的雙胞胎姊妹，湖面如鏡。這是前往瓦納卡的必經之路，一定要停下來拍張照。', image: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=1000&auto=format&fit=crop', navQuery: 'Lake Hawea Lookout',
+                              travel: { time: '1h 15min', road: 'SH8 -> SH6', note: '湖景公路' } },
+                            { time: '17:45', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
+                              travel: { time: '15min', road: 'SH6', note: '抵達瓦納卡' } },
+                            { time: '19:00', type: 'food', title: 'Wanaka 晚餐', desc: '前往 Ardmore Street，這裡是瓦納卡最熱鬧的湖濱餐飲區。', navQuery: 'Ardmore Street Wanaka' }
                         ]
                     },
                     {
