@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>紐西蘭自駕行</title>
+    <title>紐西蘭自駕行 (最終版)</title>
     
     <link rel="icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
     <link rel="apple-touch-icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
@@ -96,7 +96,7 @@
             <header class="px-6 pt-12 pb-2 flex justify-between items-center">
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
-                    <p class="text-xs text-stone-500 mt-1">2026.02.15 - 02.21</p>
+                    <p class="text-xs text-stone-500 mt-1">2026.02.17 - 02.21 (Plan C)</p>
                 </div>
                 <a href="tel:111" class="bg-red-50 text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-sm active:scale-95 transition-transform">
                     <i class="fa-solid fa-phone"></i>
@@ -261,34 +261,30 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-blue-50 rounded-2xl p-4 text-center">
-                    <p class="text-xs text-blue-800 font-medium opacity-80">建議將此頁面或訂單確認信截圖保存。</p>
-                </div>
             </div>
 
             <div v-if="currentTab === 'flight'" class="space-y-6 animate-fade-in p-4 pb-10">
                 <h2 class="text-lg font-bold text-stone-800 px-2">航班資訊 (2026)</h2>
                 <div class="space-y-4">
-                    <div v-for="(flight, i) in flightsInbound" :key="'in'+i" class="bg-white rounded-2xl p-4 shadow-sm border-l-4 border-blue-400 relative overflow-hidden">
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border-l-4 border-red-400 relative overflow-hidden">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">去程 {{ i+1 }}</span>
-                            <span class="text-xs font-mono text-stone-400">{{ flight.code }}</span>
+                            <span class="text-xs font-bold bg-red-50 text-red-600 px-2 py-1 rounded">去程 (更新)</span>
+                            <span class="text-xs font-mono text-stone-400">NZ539</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
-                                <div class="text-xl font-bold text-stone-800">{{ flight.dep }}</div>
-                                <div class="text-xs text-stone-500">{{ flight.depTime }}</div>
-                                <div class="text-[10px] text-stone-400">{{ flight.depDate }}</div>
+                                <div class="text-xl font-bold text-stone-800">AKL</div>
+                                <div class="text-xs text-stone-500">12:00</div>
+                                <div class="text-[10px] text-stone-400">02/17 (Tue)</div>
                             </div>
                             <div class="flex flex-col items-center">
                                 <i class="fa-solid fa-plane text-stone-300 rotate-90"></i>
-                                <span class="text-[10px] text-stone-300 mt-1">{{ flight.terminal }}</span>
+                                <span class="text-[10px] text-stone-300 mt-1">Dom</span>
                             </div>
                             <div class="text-right">
-                                <div class="text-xl font-bold text-stone-800">{{ flight.arr }}</div>
-                                <div class="text-xs text-stone-500">{{ flight.arrTime }}</div>
-                                <div class="text-[10px] text-stone-400">{{ flight.arrDate }}</div>
+                                <div class="text-xl font-bold text-stone-800">CHC</div>
+                                <div class="text-xs text-stone-500">13:25</div>
+                                <div class="text-[10px] text-stone-400">02/17 (Tue)</div>
                             </div>
                         </div>
                     </div>
@@ -355,74 +351,58 @@
                 const activeDay = ref(0);
                 const mainContent = ref(null);
 
-                // Watcher to reset scroll position when activeDay changes
+                // Watcher to reset scroll position
                 watch(activeDay, () => {
                     if (mainContent.value) {
                         mainContent.value.scrollTop = 0;
                     }
                 });
 
-                // 預訂詳細清單 (Clean & Original Style + Kiwi Park)
+                // Booking List (Plan C Final)
                 const bookingList = [
                     {
-                        name: 'Skytrek 滑翔傘',
-                        time: '2/17 15:00',
-                        orderId: 'CUR269680',
-                        link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
-                        notes: '需提前1小時致電 +64-080-075-987-3，確認天氣狀況並再次確認訂單。',
-                        icon: 'fa-solid fa-paper-plane',
-                        color: 'text-blue-500',
-                        bg: 'bg-blue-50'
+                        name: 'Fairlie 住宿',
+                        time: '2/17 Check-in',
+                        orderId: '請確認',
+                        link: '',
+                        notes: 'Day 1 住宿，記得去吃 Fairlie Bakehouse。',
+                        icon: 'fa-solid fa-bed',
+                        color: 'text-indigo-500',
+                        bg: 'bg-indigo-50'
                     },
                     {
                         name: 'Jervois Steak House',
-                        time: '2/17 20:15',
-                        orderId: '請查看確認信',
+                        time: '2/18 20:15',
+                        orderId: '請更改預訂',
                         link: 'https://www.jervoissteakhouse.co.nz/queenstown',
-                        notes: '保留時間通常僅 10-15 分鐘，請務必準時抵達。',
+                        notes: '請務必將訂位從 2/17 改為 2/18 晚餐。',
                         icon: 'fa-solid fa-utensils',
                         color: 'text-orange-500',
                         bg: 'bg-orange-50'
                     },
                     {
-                        name: 'Kiwi Park 奇異鳥生態園',
-                        time: '2/18 不限時段',
-                        orderId: 'AER471070',
-                        link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414719465&bookingNo=AER471070&sub_category_id=1',
-                        notes: '憑電子憑證入場。建議配合 10:00 或 12:00 的保育秀時間參觀。',
-                        icon: 'fa-solid fa-kiwi-bird',
-                        color: 'text-green-600',
-                        bg: 'bg-green-50'
-                    },
-                    {
-                        name: 'Oxbow 飛靶射擊',
-                        time: '2/18 14:30',
-                        orderId: '請查看確認信',
-                        link: 'https://www.oxbow.co.nz/',
-                        notes: '請提前 15 分鐘抵達 Gibbston Valley 現場填寫免責聲明。',
-                        icon: 'fa-solid fa-crosshairs',
-                        color: 'text-red-500',
-                        bg: 'bg-red-50'
+                        name: 'Skytrek 滑翔傘',
+                        time: '2/19 09:00', 
+                        orderId: 'CUR269680',
+                        link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
+                        notes: '請聯絡客服改期至 2/19 早上。集合點：45 Camp St。',
+                        icon: 'fa-solid fa-paper-plane',
+                        color: 'text-blue-500',
+                        bg: 'bg-blue-50'
                     },
                     {
                         name: 'Smokey T\'s',
                         time: '2/20 18:00',
                         orderId: '請查看確認信',
                         link: 'https://www.smokeyts.com/',
-                        notes: '人氣 BBQ 餐廳，建議提早 5-10 分鐘抵達。',
+                        notes: '慶功宴，建議提早抵達。',
                         icon: 'fa-solid fa-fire-burner',
                         color: 'text-stone-600',
                         bg: 'bg-stone-100'
                     }
                 ];
 
-                // 航班資料
-                const flightsInbound = [
-                    { code: 'BR869', dep: 'TPE', arr: 'HKG', depTime: '12:25', arrTime: '14:20', depDate: '02/14 (Sat)', arrDate: '02/14', terminal: 'T2 -> T1' },
-                    { code: 'NZ80', dep: 'HKG', arr: 'AKL', depTime: '17:50', arrTime: '09:40', depDate: '02/14 (Sat)', arrDate: '02/15 (+1)', terminal: 'T1 -> Int' },
-                    { code: 'NZ539', dep: 'AKL', arr: 'CHC', depTime: '12:00', arrTime: '13:25', depDate: '02/15 (Sun)', arrDate: '02/15', terminal: 'Dom -> Dom' }
-                ];
-
+                // Flights (Updated Outbound)
                 const flightsOutbound = [
                     { code: 'NZ586', dep: 'CHC', arr: 'AKL', depTime: '07:20', arrTime: '08:45', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Dom -> Dom' },
                     { code: 'NZ81', dep: 'AKL', arr: 'HKG', depTime: '10:10', arrTime: '16:20', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Int -> T1' },
@@ -431,148 +411,86 @@
 
                 const days = ref([
                     {
-                        dateStr: '02/15 Sun',
+                        dateStr: '02/17 Tue',
                         location: 'Christchurch ➔ Fairlie',
                         temp: '18°C',
                         weather: 'sunny',
-                        clothing: '洋蔥式穿搭。平地舒適，但蒂卡波地區晚上風大，請準備外套。',
-                        summary: '抵達基督城，補給後直奔 Fairlie，享受寧靜鄉村夜晚。',
-                        accommodation: '9 Gordon Street, Fairlie',
+                        clothing: '洋蔥式穿搭。抵達後直接趕路，晚上注意保暖。',
+                        summary: '航班延誤 B 計畫啟動。直奔 Fairlie 休息，準備明天攻庫克山。',
+                        accommodation: 'Fairlie',
                         aurora: true,
                         timeline: [
-                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車。請在機場稍微整理行李，準備開始右駕冒險。', navQuery: 'Christchurch Airport' },
-                            { time: '15:00', type: 'food', title: 'Pak\'nSave 補給', desc: '全紐西蘭最便宜的黃色大賣場。建議在此一次買齊這幾天的水、零食、水果。', food: '烤雞、馬鈴薯沙拉、麵包', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Pak%27n_Save_Wanganui.JPG', navQuery: 'PAK\'nSAVE Hornby',
-                              travel: { time: '20min', road: 'SH1', note: '右駕適應中' } },
-                            { time: '17:30', type: 'food', title: 'The Village Inn', desc: '位於 Geraldine 的傳統酒吧餐廳。推薦在抵達 Fairlie 前先在此享用晚餐，選擇較多。', food: '牛排、漢堡、炸魚薯條', image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop', navQuery: 'The Village Inn Geraldine',
-                              travel: { time: '2h', road: 'SH1 -> SH79', note: '平原公路' } },
-                            { time: '19:00', type: 'sleep', title: '抵達住宿', desc: '入住 9 Gordon Street。這是一個寧靜的住宿點，晚上光害少，可以在院子看星星。幸運的話肉眼可見極光！', navQuery: '9 Gordon Street, Fairlie',
-                              travel: { time: '30min', road: 'SH79', note: '鄉間道路' } }
-                        ]
-                    },
-                    {
-                        dateStr: '02/16 Mon',
-                        location: 'Fairlie ➔ Mt Cook ➔ Wanaka',
-                        temp: '16°C',
-                        weather: 'partly-cloudy',
-                        clothing: '戶外健行裝。庫克山區風大且氣候多變，建議穿防風外套並多層次穿搭。',
-                        summary: '漫步庫克山胡克谷步道，欣賞藍色牛奶湖，翻越林迪斯隘口。',
-                        accommodation: 'Ruru Retreat',
-                        aurora: false,
-                        timeline: [
-                            { time: '08:00', type: 'food', title: 'Fairlie Bakehouse', desc: '全紐西蘭最好吃的派！必點鮭魚培根派或豬肉派。建議外帶一個當午餐。', food: 'Salmon & Bacon Pie', image: 'https://flyblog.cc/wp-content/uploads/2025/09/fairlie-bakehouse-03.jpg', navQuery: 'Fairlie Bakehouse',
-                              travel: { time: '5min', road: 'Local', note: '' } },
-                            { time: '09:00', type: 'sight', title: 'Lake Tekapo', desc: '參觀牧羊人教堂 (Church of the Good Shepherd)，拍攝湖畔美景。', image: 'https://images.locationscout.net/2023/04/church-of-good-shepherd-new-zealand-m8y3.webp?h=1400&q=80', navQuery: 'Four Square Tekapo',
-                              travel: { time: '30min', road: 'SH8', note: '湖景公路' } },
-                            { time: '10:00', type: 'sight', title: 'Lake Pukaki', desc: '紐西蘭最美的藍色牛奶湖。在 Peter\'s Lookout 停車拍照，背景是雄偉的庫克山。', image: 'https://chrisandwrensworld.com/wp-content/uploads/2024/07/lake-pukaki-and-mount-cook.jpg', navQuery: 'Peter\'s Lookout',
-                              travel: { time: '30min', road: 'SH8', note: '湖景公路' } },
-                            { time: '11:30', type: 'activity', title: 'Hooker Valley Track', desc: '庫克山最經典步道。經過三座吊橋，終點是浮著冰山的冰河湖。來回約 3-4 小時，平緩好走。', warning: '吊橋風大請小心。紫外線強，請擦防曬。', image: 'https://digitaltravelcouple.com/wp-content/uploads/2023/02/hooker-valley-track-mount-cook.webp', navQuery: 'White Horse Hill Campground',
-                              travel: { time: '45min', road: 'SH80', note: '絕美景觀路' } },
-                            { time: '16:00', type: 'food', title: 'High Country Salmon', desc: '路過 Twizel 附近的鮭魚養殖場，可以買新鮮生魚片在車上吃。', food: '新鮮帝王鮭生魚片', image: 'https://flyblog.cc/wp-content/uploads/2025/09/country-salmon-10.jpg', navQuery: 'High Country Salmon',
-                              travel: { time: '40min', road: 'SH80 -> SH8', note: '' } },
-                            { time: '17:15', type: 'sight', title: 'Lake Hawea Lookout', desc: '瓦納卡湖的雙胞胎姊妹，湖面如鏡。這是前往瓦納卡的必經之路，一定要停下來拍張照。', image: 'https://api.wanaka.co.nz/assets/ListingImages/Portal/541/230403_LHV_071-v2__FocusFillWzI1NjAsMTQ0MCwieSIsMTMzXQ.jpg', navQuery: 'Lake Hawea Lookout',
-                              travel: { time: '1h 15min', road: 'SH8 -> SH6', note: '湖景公路' } },
-                            { time: '17:45', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
-                              travel: { time: '15min', road: 'SH6', note: '抵達瓦納卡' } },
-                            { time: '19:00', type: 'food', title: 'Wanaka 晚餐', desc: '前往 Ardmore Street，這裡是瓦納卡最熱鬧的湖濱餐飲區。', navQuery: 'Ardmore Street Wanaka' }
-                        ]
-                    },
-                    {
-                        dateStr: '02/17 Tue',
-                        location: 'Wanaka ➔ Queenstown',
-                        temp: '22°C',
-                        weather: 'sunny',
-                        clothing: '舒適長褲與墨鏡。參加滑翔傘陽光刺眼，墨鏡必備。',
-                        summary: '參觀酒莊建築，探索淘金小鎮，高空飛越皇后鎮。',
-                        accommodation: 'Rendezvous Heritage Hotel',
-                        aurora: false,
-                        timeline: [
-                            { time: '10:00', type: 'sight', title: 'Cardrona Distillery', desc: '卡德羅納蒸餾廠，參觀美麗的石造建築，在庭院喝一杯 Tasting Flight，購買酒莊出產的單一麥芽威士忌。', image: 'https://www.cardronadistillery.co.nz/cdn/shop/files/61380f3a9ea9377b02993e6f_6135239431317063caef5f79_neon_2-78-3.jpg?v=1665199414', navQuery: 'Cardrona Distillery',
-                              travel: { time: '20min', road: 'Cardrona Valley', note: '' } },
-                            
-                            { time: '11:30', type: 'transport', title: 'Crown Range Summit Lookout', desc: '紐西蘭海拔最高的公路。在最高點可以俯瞰整個之字形山路與皇后鎮盆地，景色絕佳。', image: 'https://i0.wp.com/www.edwud.com/wp-content/uploads/2022/01/queenstown-airport-from-crown-range-lookout.jpg?fit=2000%2C1333&ssl=1', navQuery: 'Crown Range Summit Lookout',
-                              travel: { time: '20min', road: 'Crown Range', note: '陡峭髮夾彎' } },
-                            
-                            { time: '12:30', type: 'food', title: '箭鎮午餐', desc: 'Arrowtown 是一個保留完整的淘金古鎮。可以在白金漢街散步，吃個派，感受復古氛圍。', food: 'Arrowtown Bakery', navQuery: 'Buckingham Street, Arrowtown',
-                              travel: { time: '30min', road: 'Zig Zag Rd', note: '下坡小心' } },
-                            
-                            { time: '15:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '集合地點：45 Camp Street。請提前 15 分鐘抵達。從皇冠峰跳下，享受 15-20 分鐘的空中飛行，風景壯麗。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', imgCredit: 'Skytrek', navQuery: 'Man Street Car Park',
-                              travel: { time: '25min', road: 'Local', note: '預留停車時間' } },
-                            
-                            { time: '17:00', type: 'sight', title: '皇后鎮逛逛', desc: '滑翔傘結束後回到市區，車留在停車場，在湖邊散步、逛街、吃冰淇淋。', navQuery: 'Queenstown Mall' },
-
-                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '享受頂級紐西蘭牛排。訂位時間 20:15。離滑翔傘集合點走路僅 5 分鐘。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown' }
+                            { time: '13:25', type: 'transport', title: '抵達基督城機場', desc: '辦理入境手續、取車。深呼吸，旅程現在才開始！', navQuery: 'Christchurch Airport' },
+                            { time: '15:00', type: 'food', title: '超市極速補給', desc: '在機場附近的 Countdown 或 Pak\'nSave 買水和零食。', food: '水、麵包、水果', navQuery: 'Countdown Christchurch Airport',
+                              travel: { time: '20min', road: 'Local', note: '' } },
+                            { time: '18:00', type: 'food', title: 'Fairlie Bakehouse', desc: '趕在關門前(通常16:30)買派當晚餐，或是去超商買。如果太晚到就在鎮上隨意吃。', food: 'Salmon & Bacon Pie', image: 'https://flyblog.cc/wp-content/uploads/2025/09/fairlie-bakehouse-03.jpg', navQuery: 'Fairlie Bakehouse',
+                              travel: { time: '2h 30min', road: 'SH1 -> SH79', note: '趕路模式' } },
+                            { time: '19:00', type: 'sleep', title: '抵達 Fairlie', desc: '入住 Fairlie。晚上如果天氣好，抬頭就能看到滿天星斗。', navQuery: 'Fairlie',
+                              travel: { time: '5min', road: 'Local', note: '' } }
                         ]
                     },
                     {
                         dateStr: '02/18 Wed',
-                        location: 'Queenstown ➔ Omakau',
-                        temp: '15°C',
+                        location: 'Fairlie ➔ Mt Cook ➔ Queenstown',
+                        temp: '16°C',
                         weather: 'partly-cloudy',
-                        clothing: '休閒舒適。今天行程比較輕鬆，穿好走的鞋子即可。',
-                        summary: '觀察奇異鳥，體驗飛靶射擊，入住奧塔哥鄉間。',
-                        accommodation: 'Schist Rock Lodge',
-                        aurora: true,
+                        clothing: '健行裝。早晚溫差大，庫克山風大。',
+                        summary: '最精華的一天！走庫克山步道，下午直奔皇后鎮吃牛排。',
+                        accommodation: 'Kelvin Heights (Queenstown Golf Club)',
+                        aurora: false,
                         timeline: [
-                            { time: '09:30', type: 'activity', title: 'Kiwi Park', desc: '奇異鳥生態公園。就在纜車站旁。保證能看到紐西蘭國寶 Kiwi Bird (在暗房內)，還有各種珍稀鳥類。', image: 'https://www.newzealand.com/assets/externally-managed-assets/tbd-assets/tbd-folder-10068978/img-1714046175-3185-3098839-tbd-asset__aWxvdmVrZWxseQo_CropResizeWzk0MCw1MzAsOTAsImpwZyJd.jpg', navQuery: 'Kiwi Park Queenstown',
-                              travel: { time: '5min', road: 'Local', note: '' } },
-                            
-                            { time: '12:00', type: 'food', title: 'Shopping Mall 午餐', desc: 'Queenstown Central Shopping Centre (Frankton)。離開市區往東走，這裡停車方便，餐廳選擇多。', image: 'https://cdn.prod.website-files.com/68211ee02d09deedb573daca/683fb6efde027dfc7eca97d7_6151291d7d6e904ee7fd5b29_Queenstown%2520Central%2520main%2520image%25201.jpeg', navQuery: 'Queenstown Central Shopping Centre',
-                              travel: { time: '20min', road: 'Local', note: '' } },
-
-                            { time: '14:30', type: 'activity', title: 'Oxbow 飛靶射擊', desc: '位於 Gibbston Valley。體驗 Clay Target Shooting，用散彈槍射擊飛靶，非常過癮且安全的活動。', image: 'https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_728/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xtmdxuvclwqej3sxr8vp/皇后鎮Oxbow探險體驗.jpg', navQuery: 'Oxbow Adventure Co',
-                              travel: { time: '20min', road: 'SH6', note: '順路' } },
-                            
-                            { time: '16:00', type: 'shopping', title: 'Cromwell 水果', desc: '途經水果小鎮 Cromwell，推薦停下來買最新鮮的櫻桃，或吃一支現做的 Real Fruit Ice Cream。', food: '新鮮櫻桃、水果冰淇淋', image: 'https://timtingtravel.com/wp-content/uploads/2024/10/16-18_Fruit-Sculpture_2.webp', navQuery: 'Jones Family Fruit Stall',
-                              travel: { time: '25min', road: 'SH6', note: '河谷景觀' } },
-                            
-                            { time: '17:30', type: 'sleep', title: '抵達住宿', desc: '抵達 Schist Rock Lodge。享受中奧塔哥的寧靜傍晚。', navQuery: 'Omakau',
-                              travel: { time: '40min', road: 'SH85', note: '' } }
+                            { time: '08:00', type: 'transport', title: '出發前往庫克山', desc: '早起出發，沿途欣賞 Lake Pukaki 的藍色牛奶湖光。', navQuery: 'White Horse Hill Campground',
+                              travel: { time: '1h 30min', road: 'SH8 -> SH80', note: '最美公路' } },
+                            { time: '09:30', type: 'activity', title: 'Hooker Valley Track', desc: '紐西蘭必走步道。吊橋、冰河、雪山。走到終點冰河湖再回頭。', image: 'https://digitaltravelcouple.com/wp-content/uploads/2023/02/hooker-valley-track-mount-cook.webp', navQuery: 'White Horse Hill Campground',
+                              travel: { time: '3h', road: 'Walk', note: '來回步行' } },
+                            { time: '13:00', type: 'food', title: 'High Country Salmon', desc: '離開庫克山後，在鮭魚場買新鮮生魚片充飢。', food: '鮭魚生魚片', image: 'https://flyblog.cc/wp-content/uploads/2025/09/country-salmon-10.jpg', navQuery: 'High Country Salmon',
+                              travel: { time: '45min', road: 'SH80 -> SH8', note: '' } },
+                            { time: '17:15', type: 'sight', title: 'Lake Hawea Lookout', desc: '瓦納卡湖的雙胞胎姊妹，湖面如鏡。這是前往瓦納卡的必經之路，一定要停下來拍張照。', image: 'https://api.wanaka.co.nz/assets/ListingImages/Portal/541/230403_LHV_071-v2__FocusFillWzI1NjAsMTQ0MCwieSIsMTMzXQ.jpg', navQuery: 'Lake Hawea Lookout',
+                              travel: { time: '1h 15min', road: 'SH8 -> SH6', note: '湖景公路' } },
+                            { time: '17:45', type: 'sight', title: '孤獨樹散步', desc: '經 Lindis Pass 抵達 Wanaka。去湖邊看那棵有名的孤獨樹。', image: 'https://ialive.bwnet.com.tw/AC_Gallery/2024/09/3979ba8f-8a1d-6a58-258d-ddb2087cda7d.jpg', imgCredit: 'Wanaka Tree', navQuery: 'That Wanaka Tree',
+                              travel: { time: '15min', road: 'SH6', note: '抵達瓦納卡' } },
+                            { time: '20:15', type: 'food', title: 'Jervois Steak House', desc: '好好犒賞自己！這是你原本預訂的牛排，請記得改期到今晚。', food: 'Signature Steak', image: 'https://images.firsttable.net/1170x655/public/restaurant/47604a0c96/image-8251729.jpeg', navQuery: 'Jervois Steak House Queenstown',
+                              travel: { time: '1h 15min', road: 'SH6', note: '抵達皇后鎮' } }
                         ]
                     },
                     {
                         dateStr: '02/19 Thu',
-                        location: 'Omakau ➔ Dunedin',
-                        temp: '16°C',
+                        location: 'Queenstown ➔ Dunedin',
+                        temp: '19°C',
                         weather: 'cloudy',
-                        clothing: '極度保暖。晚上在海邊看企鵝非常冷，請穿上你帶的所有保暖衣物（毛帽、手套）。',
-                        summary: '走 Pig Route 公路，探索蘇格蘭風情古城與企鵝。',
-                        accommodation: 'Private Luxury Townhouse',
-                        aurora: true,
+                        clothing: '防風保暖。下午去海邊風大。',
+                        summary: '早上補飛滑翔傘，下午前往蘇格蘭風情古城但尼丁看海獅。',
+                        accommodation: 'Private Luxury Townhouse (Dunedin)',
+                        aurora: false,
                         timeline: [
-                            { time: '09:30', type: 'transport', title: 'Pig Route (SH85)', desc: '這是一條人煙稀少的內陸公路，沿途是金黃色的草海與荒涼壯闊的景色，非常有公路電影的感覺。', image: 'https://www.roamingdownunder.com/images/pigroot-descent1.jpg', navQuery: 'Pig Route' },
-                            { time: '13:00', type: 'sight', title: '但尼丁火車站', desc: '參觀被譽為薑餅屋的「但尼丁火車站」。這座城市充滿蘇格蘭建築風情。', image: 'https://rosy-arts.com/wp-content/uploads/2023/05/20191026_151010_DSC05497-1-1024x683.jpeg', imgCredit: 'Dunedin Station', navQuery: 'Dunedin Railway Station',
-                              travel: { time: '2h 30min', road: 'Pig Route', note: '荒涼內陸公路' } },
-                            { time: '14:30', type: 'sight', title: '鮑德溫街', desc: '世界最陡街道。挑戰走上去。', image: 'https://www.travelandtourworld.com/wp-content/uploads/2026/01/Baldwin-Street.jpg', navQuery: 'Baldwin Street' },
-                            { time: '15:30', type: 'sight', title: '奧塔哥大學', desc: '紐西蘭最古老大學，參觀鐘樓建築。', image: 'https://img.mweb.com.tw/thumb/307/1000x1000/%25E7%2595%2599%25E5%25AD%25B8/%25E7%25B4%2590%25E8%25A5%25BF%25E8%2598%25AD/University-of-Otago-%25E5%25A5%25A7%25E5%25A1%2594%25E5%2593%25A5%25E5%25A4%25A7%25E5%25AD%25B8/university-of-otago-campus-building.jpg', navQuery: 'University of Otago Clocktower' },
-                            { time: '17:30', type: 'food', title: '市區晚餐', desc: '建議早點吃，前往半島看企鵝路程較遠。', navQuery: 'The Octagon Dunedin' },
-                            { time: '20:00', type: 'activity', title: '小藍企鵝歸巢', desc: '位於 Otago 半島頂端。觀察世界上最小的企鵝從海裡上岸回巢的可愛模樣。', warning: '海邊極冷，且禁止使用閃光燈拍照。', image: 'https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vqw34w2exgyyacpcplua/%E8%8F%B2%E5%88%A9%E6%99%AE%E5%B3%B6%E8%A7%80%E5%85%89%E7%A5%9E%E4%BB%99%E5%B0%8F%E4%BC%81%E9%B5%9D%E6%AD%B8%E5%B7%A2%E4%B9%8B%E6%97%85.jpg', navQuery: 'Blue Penguins Pukekura',
-                              travel: { time: '1h', road: 'Peninsula Rd', note: '路窄蜿蜒' } }
+                            { time: '09:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '補考成功！從皇冠峰俯瞰皇后鎮美景。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', navQuery: 'Man Street Car Park',
+                              travel: { time: '25min', road: 'Local', note: '預留停車' } },
+                            { time: '12:00', type: 'food', title: '皇后鎮午餐', desc: '吃完午餐後，準備長途移動前往東海岸。', navQuery: 'Queenstown Mall',
+                              travel: { time: '3h 30min', road: 'SH8 -> SH1', note: '長途駕駛' } },
+                            { time: '16:30', type: 'sight', title: 'Sandfly Bay 海獅', desc: '抵達但尼丁半島。運氣好的話，沙灘上有巨大的野生海獅在睡覺。', warning: '保持 20 公尺距離，不要擋住海獅去路。', image: 'https://www.doc.govt.nz/globalassets/images/places/otago/sandfly-bay/sandfly-bay-hero.jpg', navQuery: 'Sandfly Bay Track',
+                              travel: { time: '20min', road: 'Local', note: '沙地步道' } },
+                            { time: '19:00', type: 'food', title: '但尼丁晚餐', desc: '在 Octagon 八角廣場附近找餐廳，享受城市氛圍。', navQuery: 'The Octagon Dunedin' }
                         ]
                     },
-                     {
+                    {
                         dateStr: '02/20 Fri',
                         location: 'Dunedin ➔ Christchurch',
-                        temp: '19°C',
+                        temp: '20°C',
                         weather: 'sunny',
-                        clothing: '休閒舒適 + 防風。東海岸海風較大，建議穿連帽外套或戴帽子，以免吹久了頭痛。',
-                        summary: '大圓石、海豹與鮮奶，維多利亞風情。',
+                        clothing: '休閒舒適。',
+                        summary: '東海岸美食之旅。龍蝦、大圓石、海豹，最後回到基督城。',
                         accommodation: 'The Milano Christchurch',
                         aurora: false,
                         timeline: [
-                            { time: '09:30', type: 'sight', title: 'Moeraki 大圓石', desc: '海灘上散落著許多巨大、圓潤的石頭，像恐龍蛋一樣。傳說是毛利獨木舟翻船後的遺跡。', image: 'https://i0.wp.com/devilstales.com/wp-content/uploads/New_Zealand/Moeraki_Boulders/moeraki03.jpg?resize=1000%2C666&ssl=1', imgCredit: 'Moeraki', navQuery: 'Moeraki Boulders Cafe',
-                              travel: { time: '1h', road: 'SH1', note: '' } },
-                            { time: '10:30', type: 'sight', title: 'Katiki Point 海豹', desc: '沿著燈塔步道走，你會發現草地上和岩石上躺滿了正在睡覺的皮毛海豹 (Fur Seals) 與海鳥。', warning: '請保持距離，絕對不要擋住海豹回海裡的路。', image: 'https://i0.wp.com/juor2.com/wp-content/uploads/DSC_6910.jpg?resize=756%2C503&ssl=1', navQuery: 'Katiki Point Lighthouse',
-                              travel: { time: '15min', road: 'Lighthouse Rd', note: '碎石路末段' } },
-                            { time: '11:30', type: 'food', title: 'The Fish Wife', desc: '位於 Moeraki 漁港的藍色小貨櫃名店。必點 Crayfish (龍蝦) 與海鮮拼盤。', food: '新鮮龍蝦、海鮮藍鱈魚', warning: '龍蝦數量有限，最好 11:30 就到！', image: 'https://img.fun-life.com.tw/new-zealand/nins-bin/DSC01209.jpg', imgCredit: 'Seafood Feast', navQuery: 'The Fish Wife Moeraki',
-                              travel: { time: '10min', road: 'Local', note: '漁港小路' } },
-                            { time: '13:00', type: 'food', title: 'The Natural Dairy', desc: '位於路邊的投幣式鮮奶站。這裡的牛奶是 Pasteurized 但未均質化，口感極度濃郁，上面會浮一層奶油。', food: '玻璃瓶裝鮮奶', image: 'https://dzpdbgwih7u1r.cloudfront.net/96a71398-d4ed-44ce-8a6d-94c1fc559493/9c385471-7c93-4952-9910-17e28ace9ddf/9c385471-7f15-4183-a18d-00d3028cb4c0/w1200h1200-54b77bbde54ee4d2349d672344da69a1.jpg', navQuery: '27 Bulleid Road, Deborah',
-                              travel: { time: '30min', road: 'SH1', note: '' } },
-                            { time: '13:30', type: 'shopping', title: 'Oamaru 維多利亞區', desc: '這裡保留了紐西蘭最完整的 19 世紀白石建築群。充滿了藝廊、手工藝品店與濃濃的蒸氣龐克 (Steampunk) 風格。', image: 'https://img.fun-life.com.tw/new-zealand/oamaru-victorian-precinct/DSC00166.jpg', imgCredit: 'Oamaru', navQuery: 'Oamaru Victorian Precinct',
-                              travel: { time: '10min', road: 'Local', note: '' } },
-                            { time: '16:00', type: 'transport', title: '抵達基督城', desc: '開車前往 The Milano Christchurch 辦理 Check-in，放下行李。', navQuery: 'The Milano Christchurch',
-                              travel: { time: '3h 30min', road: 'SH1', note: '長途駕駛' } },
-                            { time: '18:00', type: 'food', title: 'Smokey T\'s', desc: '享用著名的 BBQ 晚餐。訂位 18:00。', food: '肉拼盤、肋排', image: 'https://www.kkday.com/en-ph/blog/wp-content/uploads/smokey-Ts.jpeg', navQuery: 'Smokey T\'s Christchurch' },
-                            { time: '20:00', type: 'sleep', title: '回飯店休息', desc: '回到 The Milano Christchurch 休息。', navQuery: 'The Milano Christchurch' }
+                            { time: '09:30', type: 'sight', title: '但尼丁火車站', desc: '參觀這座像薑餅屋一樣的華麗車站，拍張照留念。', image: 'https://rosy-arts.com/wp-content/uploads/2023/05/20191026_151010_DSC05497-1-1024x683.jpeg', navQuery: 'Dunedin Railway Station',
+                              travel: { time: '1h', road: 'SH1', note: '往北' } },
+                            { time: '11:45', type: 'food', title: 'The Fish Wife', desc: 'Moeraki 漁港必吃！新鮮 Crayfish (龍蝦) 與海鮮籃。', food: 'Crayfish', image: 'https://img.fun-life.com.tw/new-zealand/nins-bin/DSC01209.jpg', navQuery: 'The Fish Wife Moeraki',
+                              travel: { time: '15min', road: 'Local', note: '' } },
+                            { time: '13:00', type: 'sight', title: 'Katiki Point 海豹', desc: '吃飽後去旁邊燈塔走走，這裡的海豹超級多！', image: 'https://i0.wp.com/juor2.com/wp-content/uploads/DSC_6910.jpg?resize=756%2C503&ssl=1', navQuery: 'Katiki Point Lighthouse',
+                              travel: { time: '15min', road: 'Local', note: '' } },
+                            { time: '14:30', type: 'sight', title: 'Oamaru 維多利亞區', desc: '途經 Oamaru，欣賞白石建築，買個 Whitestone Cheese。', image: 'https://img.fun-life.com.tw/new-zealand/oamaru-victorian-precinct/DSC00166.jpg', navQuery: 'Oamaru Victorian Precinct',
+                              travel: { time: '3h 30min', road: 'SH1', note: '最後一段路' } },
+                            { time: '18:30', type: 'food', title: 'Smokey T\'s', desc: '回到基督城，用最棒的 BBQ 肋排結束這趟旅程。', food: 'Pork Ribs', image: 'https://www.kkday.com/en-ph/blog/wp-content/uploads/smokey-Ts.jpeg', navQuery: 'Smokey T\'s Christchurch' }
                         ]
                     },
                     {
@@ -580,14 +498,13 @@
                         location: 'Home Sweet Home',
                         temp: '-',
                         weather: 'sunny',
-                        clothing: '長途飛行舒適裝。寬鬆衣物，好穿脫的鞋子。',
-                        summary: '旅程結束，平安返家。',
+                        clothing: '舒適搭機裝。',
+                        summary: '平安返家。',
                         accommodation: '-',
                         aurora: false,
                         timeline: [
-                            { time: '04:40', type: 'transport', title: '前往機場', desc: '開車前往基督城機場。', navQuery: 'Christchurch Airport' },
-                            { time: '05:00', type: 'transport', title: '機場還車', desc: '依照指示前往租車公司還車點，完成還車手續。', navQuery: 'Christchurch Airport Rental Car Return' },
-                            { time: '07:20', type: 'flight', title: '飛機起飛', desc: 'Have a safe flight!', navQuery: '' }
+                            { time: '05:00', type: 'transport', title: '機場還車', desc: '前往租車公司還車，搭機返台。', navQuery: 'Christchurch Airport Rental Car Return' },
+                            { time: '07:20', type: 'flight', title: '飛機起飛', desc: 'Goodbye NZ!', navQuery: '' }
                         ]
                     }
                 ]);
