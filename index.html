@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>紐西蘭自駕行 (Tuna 定案版)</title>
+    <title>紐西蘭自駕行 (Tuna 最終確認)</title>
     
     <link rel="icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
     <link rel="apple-touch-icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
@@ -93,7 +93,7 @@
             <header class="px-6 pt-12 pb-2 flex justify-between items-center">
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-stone-800">紐西蘭自駕行</h1>
-                    <p class="text-xs text-stone-500 mt-1">2026.02.17 - 02.21 (Ready)</p>
+                    <p class="text-xs text-stone-500 mt-1">2026.02.17 - 02.21</p>
                 </div>
                 <a href="tel:111" class="bg-red-50 text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-sm active:scale-95 transition-transform">
                     <i class="fa-solid fa-phone"></i>
@@ -252,7 +252,7 @@
                                 </div>
 
                                 <a v-if="book.link" :href="book.link" target="_blank" class="block w-full text-center bg-stone-800 text-white py-2 rounded-xl text-sm font-medium mt-3 active:scale-95 transition-transform hover:bg-stone-700">
-                                    前往官網 / 訂單
+                                    前往官網 / 確認
                                 </a>
                             </div>
                         </div>
@@ -355,14 +355,14 @@
                     }
                 });
 
-                // Booking List (Updated per request)
+                // Booking List
                 const bookingList = [
                     {
                         name: 'Jervois Steak House',
                         time: '2/18 20:15',
                         orderId: 'BTJQHADG',
-                        link: null, // No button
-                        notes: '', // No notes
+                        link: null, 
+                        notes: '', 
                         icon: 'fa-solid fa-utensils',
                         color: 'text-orange-500',
                         bg: 'bg-orange-50'
@@ -389,18 +389,18 @@
                     }
                 ];
 
-                // Flights Inbound (Updated from image 16 Feb start)
+                // Flights Inbound (Updated with Flight Numbers & Times)
                 const flightsInbound = [
-                    { code: 'TPE -> HKG', dep: 'TPE', arr: 'HKG', depTime: '12:25 PM', arrTime: '02:20 PM', depDate: '02/16 (Mon)', arrDate: '02/16', terminal: '-' },
-                    { code: 'HKG -> AKL', dep: 'HKG', arr: 'AKL', depTime: '05:50 PM', arrTime: '09:40 AM', depDate: '02/16 (Mon)', arrDate: '02/17 (+1)', terminal: '-' },
-                    { code: 'AKL -> CHC', dep: 'AKL', arr: 'CHC', depTime: '12:00 PM', arrTime: '01:25 PM', depDate: '02/17 (Tue)', arrDate: '02/17', terminal: '-' }
+                    { code: 'BR869', dep: 'TPE', arr: 'HKG', depTime: '12:25 PM', arrTime: '02:20 PM', depDate: '02/16 (Mon)', arrDate: '02/16', terminal: 'T2 -> T1' },
+                    { code: 'NZ80', dep: 'HKG', arr: 'AKL', depTime: '05:50 PM', arrTime: '09:40 AM', depDate: '02/16 (Mon)', arrDate: '02/17 (+1)', terminal: 'T1 -> Int' },
+                    { code: 'NZ539', dep: 'AKL', arr: 'CHC', depTime: '12:00 PM', arrTime: '01:25 PM', depDate: '02/17 (Tue)', arrDate: '02/17', terminal: 'Dom -> Dom' }
                 ];
 
-                // Flights Outbound
+                // Flights Outbound (Updated with Flight Numbers)
                 const flightsOutbound = [
-                    { code: 'NZ586', dep: 'CHC', arr: 'AKL', depTime: '07:20', arrTime: '08:45', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Dom -> Dom' },
-                    { code: 'NZ81', dep: 'AKL', arr: 'HKG', depTime: '10:10', arrTime: '16:20', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Int -> T1' },
-                    { code: 'CX466', dep: 'HKG', arr: 'TPE', depTime: '09:30', arrTime: '11:25', depDate: '02/22 (Sun)', arrDate: '02/22', terminal: 'T1 -> T1' }
+                    { code: 'NZ586', dep: 'CHC', arr: 'AKL', depTime: '07:20 AM', arrTime: '08:45 AM', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Dom -> Dom' },
+                    { code: 'NZ81', dep: 'AKL', arr: 'HKG', depTime: '10:10 AM', arrTime: '04:20 PM', depDate: '02/21 (Sat)', arrDate: '02/21', terminal: 'Int -> T1' },
+                    { code: 'CX466', dep: 'HKG', arr: 'TPE', depTime: '09:30 AM', arrTime: '11:25 AM', depDate: '02/22 (Sun)', arrDate: '02/22', terminal: 'T1 -> T1' }
                 ];
 
                 const days = ref([
