@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>紐西蘭自駕行 (C 計畫)</title>
+    <title>紐西蘭自駕行 (C 計畫 v2)</title>
     
     <link rel="icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
     <link rel="apple-touch-icon" href="https://wsrv.nl/?url=https://media.istockphoto.com/id/1182291766/zh/%E7%85%A7%E7%89%87/%E7%B4%90%E8%A5%BF%E8%98%AD%E6%AF%9B%E7%9A%AE%E6%B5%B7%E8%B1%B9.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DisCFb_ReekGrHT9wShvO5QnnQAW_cwf6_bDPhss3INk=&w=512&h=512&fit=cover&a=left">
@@ -57,6 +57,7 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* 交通連接線：主線 */
         .transit-line {
             position: absolute;
             left: 28px;
@@ -67,6 +68,7 @@
             height: 100%;
         }
         
+        /* 隱藏最後一個項目的線 */
         .timeline-item:last-child .transit-line {
             display: none;
         }
@@ -79,6 +81,7 @@
             color: #A8A29E;
         }
         
+        /* 底部導航欄：上移 */
         .safe-area-nav {
             padding-bottom: 3rem;
             padding-bottom: calc(3rem + env(safe-area-inset-bottom));
@@ -355,7 +358,7 @@
                     }
                 });
 
-                // Booking List (Plan C Final)
+                // Booking List (Plan C Final - Updated 2/19 Skytrek)
                 const bookingList = [
                     {
                         name: 'Fairlie 住宿',
@@ -379,10 +382,10 @@
                     },
                     {
                         name: 'Skytrek 滑翔傘',
-                        time: '2/19 09:00', 
+                        time: '2/19 12:00', // Changed to Noon
                         orderId: 'CUR269680',
                         link: 'https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5414150628&bookingNo=CUR269680&sub_category_id=15',
-                        notes: '請聯絡客服改期至 2/19 早上。集合點：45 Camp St。',
+                        notes: '已改期至 12:00。請提早15分鐘抵達 45 Camp St。',
                         icon: 'fa-solid fa-paper-plane',
                         color: 'text-blue-500',
                         bg: 'bg-blue-50'
@@ -456,17 +459,19 @@
                         temp: '19°C',
                         weather: 'cloudy',
                         clothing: '防風保暖。下午去海邊風大。',
-                        summary: '早上補飛滑翔傘，下午前往蘇格蘭風情古城但尼丁看海獅。',
+                        summary: '早上悠閒時光與滑翔傘，下午前往但尼丁，傍晚看海獅。',
                         accommodation: 'Private Luxury Townhouse (Dunedin)',
                         aurora: false,
                         timeline: [
-                            { time: '09:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '補考成功！從皇冠峰俯瞰皇后鎮美景。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', navQuery: 'Man Street Car Park',
-                              travel: { time: '25min', road: 'Local', note: '預留停車' } },
-                            { time: '12:00', type: 'food', title: '皇后鎮午餐', desc: '吃完午餐後，準備長途移動前往東海岸。', navQuery: 'Queenstown Mall',
+                            { time: '09:00', type: 'sight', title: '皇后鎮悠閒早晨', desc: '去買個 Fergburger 當早午餐，或是去湖邊散步，享受不用趕路的早晨。', image: 'https://www.queenstownnz.co.nz/assets/Uploads/Queenstown-Gardens-Spring-2__FillWzEyMDAsNjMwXQ.jpg', navQuery: 'Queenstown Gardens',
+                              travel: { time: '20min', road: 'Local', note: '輕鬆晃晃' } },
+                            { time: '12:00', type: 'activity', title: 'Skytrek 滑翔傘', desc: '中午氣流正好！從皇冠峰俯瞰皇后鎮美景。', image: 'https://res.klook.com/image/upload/w_500,h_313,c_fill,q_85/activities/sbl78g3yaeoqnmd3kf3h.jpg', navQuery: 'Man Street Car Park',
+                              travel: { time: '20min', road: 'Local', note: '前往集合' } },
+                            { time: '14:30', type: 'transport', title: '出發前往但尼丁', desc: '買點東西在車上吃，準備開始長途駕駛前往東海岸。', navQuery: 'Dunedin',
                               travel: { time: '3h 30min', road: 'SH8 -> SH1', note: '長途駕駛' } },
-                            { time: '16:30', type: 'sight', title: 'Sandfly Bay 海獅', desc: '抵達但尼丁半島。運氣好的話，沙灘上有巨大的野生海獅在睡覺。', warning: '保持 20 公尺距離，不要擋住海獅去路。', image: 'https://www.doc.govt.nz/globalassets/images/places/otago/sandfly-bay/sandfly-bay-hero.jpg', navQuery: 'Sandfly Bay Track',
+                            { time: '18:30', type: 'sight', title: 'Sandfly Bay 海獅', desc: '抵達但尼丁半島。黃昏時分，海獅通常已經上岸休息，光線也最美。', warning: '保持 20 公尺距離，不要擋住海獅去路。', image: 'https://www.doc.govt.nz/globalassets/images/places/otago/sandfly-bay/sandfly-bay-hero.jpg', navQuery: 'Sandfly Bay Track',
                               travel: { time: '20min', road: 'Local', note: '沙地步道' } },
-                            { time: '19:00', type: 'food', title: '但尼丁晚餐', desc: '在 Octagon 八角廣場附近找餐廳，享受城市氛圍。', navQuery: 'The Octagon Dunedin' }
+                            { time: '20:00', type: 'food', title: '但尼丁晚餐', desc: '回到市區吃晚餐。', navQuery: 'The Octagon Dunedin' }
                         ]
                     },
                     {
@@ -540,7 +545,8 @@
                     activeDay,
                     days,
                     mainContent, // 暴露 mainContent 給模板使用
-                    flightsOutbound, // Inbound was removed as it's past
+                    flightsInbound,
+                    flightsOutbound,
                     bookingList,
                     getWeatherIcon,
                     getTypeColor,
